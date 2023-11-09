@@ -11,6 +11,8 @@ Archive of everything surrounding the course.
 ## Course-Works
 - Flora <br> https://github.com/Erpix3lt/Flora
 
+## Project Ideas
+- Visualize Plant Data (Electrical Current..) and train a model on the visualized images, in order to give some feedback
 ## References
 ### 18.10.2023
 - Max Ernst Museum, Exhibition <br> https://maxernstmuseum.lvr.de/de/ausstellungen/surreal_futures_16nv2a6w00cbh/surreal_futures.html
@@ -26,3 +28,7 @@ Archive of everything surrounding the course.
 ### 31.10.2023
 - Objects and texture <br> https://www.cytter-datalab.com/
 
+### 09.11.2023
+- What do Vision Transformers Learn? A Visual Exploration <br>https://arxiv.org/abs/2212.06727
+- AI Art without text to image - Myriad Tulips <br>https://annaridler.com/myriad-tulips
+- Telegarden <br> https://goldberg.berkeley.edu/garden/Ars/
