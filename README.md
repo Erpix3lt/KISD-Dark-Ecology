@@ -38,3 +38,6 @@ Have a setup of where to put faces ("Röntgenraum Zahnarzt") scane emotions, dis
 - What do Vision Transformers Learn? A Visual Exploration <br>https://arxiv.org/abs/2212.06727
 - AI Art without text to image - Myriad Tulips <br>https://annaridler.com/myriad-tulips
 - Telegarden <br> https://goldberg.berkeley.edu/garden/Ars/
+
+### 14.11.2023
+- Dust I <br> https://arambartholl.com/de/dust-winter-prison/
