@@ -41,3 +41,6 @@ Have a setup of where to put faces ("Röntgenraum Zahnarzt") scane emotions, dis
 
 ### 14.11.2023
 - Dust I <br> https://arambartholl.com/de/dust-winter-prison/
+
+### 16.11.2023
+- Nooscope Manifeterd <br> https://link.springer.com/article/10.1007/s00146-020-01097-6
