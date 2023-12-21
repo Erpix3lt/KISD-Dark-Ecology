@@ -5,8 +5,7 @@ Archive of everything surrounding the course.
 - Exhibition in Summer (around June)
 
 ## TODOs
-- Research Biological AI
-- Look at old sketches of Flowers
+- Build a handheld navigation towars light device. Attach two light sensors to a raspberry pi. Compare both values, let the raspberry pi navigate you by telling either left or right. This might also be possible with a camera.
 
 ## Course-Works
 - Flora <br> https://github.com/Erpix3lt/Flora
