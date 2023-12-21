@@ -43,3 +43,6 @@ Have a setup of where to put faces ("Röntgenraum Zahnarzt") scane emotions, dis
 
 ### 16.11.2023
 - Nooscope Manifeterd <br> https://link.springer.com/article/10.1007/s00146-020-01097-6
+
+### 21.12.2023
+- Raspi and Camera <br> https://magpi.raspberrypi.com/articles/add-navigation-to-a-low-cost-robot
