@@ -1,18 +1,24 @@
 from vision_service import VisionService
-from face_detector import FaceDetector
-from file_service import FileService
+from brightness_analyser import BrightnessAnalyser
+import time
 
 if __name__ == "__main__":
     vs = VisionService()
-    fd = FaceDetector("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
+    brightness_analyser = BrightnessAnalyser()
 
     vs.start()
-    
+
     try:
-        image = vs.capture_array()
-        faces = fd.detect_faces(image)
-        fd.draw_faces(image, faces)
-        FileService.save_image(image)
+        while True:
+            image = vs.capture_array()
+            is_left = brightness_analyser.process_image(image)
+            
+            if is_left:
+                print("Left")
+            else:
+                print("Right")
+
+            time.sleep(10) 
     except KeyboardInterrupt:
         pass
     finally:
