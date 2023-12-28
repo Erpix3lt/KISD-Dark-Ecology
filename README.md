@@ -5,8 +5,7 @@ Archive of everything surrounding the course.
 - Exhibition in Summer (around June)
 
 ## TODOs
-- Research Biological AI
-- Look at old sketches of Flowers
+- Build a handheld navigation towars light device. Attach two light sensors to a raspberry pi. Compare both values, let the raspberry pi navigate you by telling either left or right. This might also be possible with a camera.
 
 ## Course-Works
 - Flora <br> https://github.com/Erpix3lt/Flora
@@ -44,3 +43,6 @@ Have a setup of where to put faces ("Röntgenraum Zahnarzt") scane emotions, dis
 
 ### 16.11.2023
 - Nooscope Manifeterd <br> https://link.springer.com/article/10.1007/s00146-020-01097-6
+
+### 21.12.2023
+- Raspi and Camera <br> https://magpi.raspberrypi.com/articles/add-navigation-to-a-low-cost-robot
