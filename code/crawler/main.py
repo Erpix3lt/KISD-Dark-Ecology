@@ -1,5 +1,5 @@
-from vision_service import VisionService
-from face_detector import FaceDetector
+from crawler.vision_service import VisionService
+from crawler.face_detector import FaceDetector
 import time
 
 if __name__ == "__main__":
