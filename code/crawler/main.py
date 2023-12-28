@@ -15,6 +15,8 @@ if __name__ == "__main__":
             if len(faces) > 0:
                 print("There is a face")
                 face_detector.draw_faces(image, faces)
+            else:
+                print("There is no face")
             time.sleep(5)  # Adjust the delay as needed
     except KeyboardInterrupt:
         pass
