@@ -22,3 +22,7 @@ class VisionService:
         self.start()
         self.picam2.capture_file(filename)
         self.stop()
+
+if __name__ == "__main__":
+    vs = VisionService()
+    vs.capture("test.jpg")
