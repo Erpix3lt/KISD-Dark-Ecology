@@ -1,25 +1,14 @@
-#!/usr/bin/python3
-
 import cv2
 
-from picamera2 import Picamera2
+class FaceDetector:
+    def __init__(self, cascade_path):
+        self.face_cascade = cv2.CascadeClassifier(cascade_path)
 
-# Grab images as numpy arrays and leave everything else to OpenCV.
+    def detect_faces(self, image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        faces = self.face_cascade.detectMultiScale(gray, 1.1, 5)
+        return faces
 
-face_detector = cv2.CascadeClassifier("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
-cv2.startWindowThread()
-
-picam2 = Picamera2()
-picam2.start()
-
-while True:
-    im = picam2.capture_array()
-
-    grey = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-    faces = face_detector.detectMultiScale(grey, 1.1, 5)
-
-    for (x, y, w, h) in faces:
-        cv2.rectangle(im, (x, y), (x + w, y + h), (0, 255, 0))
-
-    cv2.imshow("Camera", im)
-    cv2.waitKey(1)
+    def draw_faces(self, image, faces):
+        for (x, y, w, h) in faces:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
