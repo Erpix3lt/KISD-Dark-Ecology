@@ -1,6 +1,6 @@
 import unittest
 import cv2
-from crawler.face_detector import FaceDetector
+from ..face_detector import FaceDetector
 
 class TestFaceDetector(unittest.TestCase):
     def test_face_detection(self):
