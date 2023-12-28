@@ -5,7 +5,7 @@ from face_detector import FaceDetector
 class TestFaceDetector(unittest.TestCase):
     def test_face_detection(self):
         # Path to the downloaded image
-        image_path = "face_image.jpg"
+        image_path = "results/image_20231228204518.jpg"
         
         # Read the image from the local file
         image_array = cv2.imread(image_path)
