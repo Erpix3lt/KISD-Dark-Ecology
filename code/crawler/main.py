@@ -11,13 +11,8 @@ if __name__ == "__main__":
     try:
         image = vs.capture_array()
         faces = fd.detect_faces(image)
-
-        if len(faces) > 0:
-            print("There is a face")
-            fd.draw_faces(image, faces)
-            FileService.save_image(image)
-        else:
-            print("No face detected")
+        fd.draw_faces(image, faces)
+        FileService.save_image(image)
     except KeyboardInterrupt:
         pass
     finally:
