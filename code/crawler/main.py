@@ -18,7 +18,7 @@ if __name__ == "__main__":
             else:
                 print("Right")
 
-            time.sleep(10) 
+            time.sleep(2) 
     except KeyboardInterrupt:
         pass
     finally:
