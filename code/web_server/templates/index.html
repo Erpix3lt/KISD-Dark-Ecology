@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 200px;
+            margin: 10px;
+        }
+    </style>
     <title>Image Viewer</title>
 </head>
 <body>
     <h1>Image Viewer</h1>
-    {% for path in image_paths %}
-        <img src="{{ url_for('get_image', filename=path) }}" alt="Image">
-    {% endfor %}
+    <div class="image-container">
+        {% for path in image_paths %}
+            <img src="{{ url_for('get_image', filename=path) }}" alt="Image">
+        {% endfor %}
+    </div>
 </body>
 </html>
