@@ -12,7 +12,7 @@ def get_images():
     try:
         folder_path = request.args.get('folder', default='', type=str)
         folder_path = os.path.normpath(folder_path)  # Normalize the path
-        image_folder = os.path.join(os.getcwd(), folder_path)
+        image_folder = os.path.abspath(folder_path)
 
         # Check if the folder exists
         if not os.path.exists(image_folder) or not os.path.isdir(image_folder):
@@ -25,10 +25,11 @@ def get_images():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route('/<folder>/<filename>')
+@app.route('/<path:folder>/<filename>')
 def get_image(folder, filename):
     try:
-        folder_path = os.path.join(os.getcwd(), folder)
+        # Construct an absolute path directly
+        folder_path = os.path.abspath(folder)
         return send_from_directory(folder_path, filename)
     except Exception as e:
         return str(e), 404
