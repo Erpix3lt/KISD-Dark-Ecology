@@ -16,5 +16,12 @@ class TestBrightnessAnalyser(unittest.TestCase):
         result = analyser.process_image(image)
         self.assertFalse(result)
 
+    def test_unprepared_image(self):
+        image = cv2.imread('assets/no_bright_spot.jpg')
+        analyser = BrightnessAnalyser()
+        result = analyser.process_image(image)
+        print("result" + result)
+        self.assertFalse(result)
+
 if __name__ == '__main__':
     unittest.main()
