@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            text-align: center;
         }
 
         .image-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .image-container img {
@@ -19,36 +18,14 @@
             margin: 10px;
         }
     </style>
-    <script>
-        function updateImages() {
-            var folderPath = document.getElementById('folder-path').value;
-            var imageContainer = document.getElementById('image-container');
-
-            // Clear existing images
-            imageContainer.innerHTML = '';
-
-            // Fetch and display new images
-            fetch('/get_images?folder=' + encodeURIComponent(folderPath))
-                .then(response => response.json())
-                .then(data => {
-                    data.imagePaths.forEach(path => {
-                        var img = document.createElement('img');
-                        img.src = path;
-                        img.alt = 'Image';
-                        imageContainer.appendChild(img);
-                    });
-                });
-        }
-    </script>
     <title>Image Viewer</title>
 </head>
 <body>
     <h1>Image Viewer</h1>
-    <label for="folder-path">Enter Folder Path:</label>
-    <input type="text" id="folder-path" placeholder="Enter folder path">
-    <button onclick="updateImages()">Load Images</button>
-    <div id="image-container" class="image-container">
-        <!-- Images will be displayed here -->
+    <div class="image-container">
+        {% for path in image_paths %}
+            <img src="{{ url_for('get_image', filename=path) }}" alt="Image">
+        {% endfor %}
     </div>
 </body>
 </html>
