@@ -6,7 +6,7 @@ class TestBrightnessAnalyser(unittest.TestCase):
 
     def test_process_image(self):
         # Load the example image (adjust the file path accordingly)
-        image = cv2.imread('assets/bright_spot_right.jpg')
+        image = cv2.imread('assets/bright_spot_top_right.jpg')
 
         # Instantiate the BrightnessAnalyser
         analyser = BrightnessAnalyser()
