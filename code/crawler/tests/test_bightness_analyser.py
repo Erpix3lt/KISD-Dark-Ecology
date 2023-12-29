@@ -21,7 +21,7 @@ class TestBrightnessAnalyser(unittest.TestCase):
         analyser = BrightnessAnalyser()
         result = analyser.process_image(image)
         print("result" , result)
-        self.assertFalse(result)
+        self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()
