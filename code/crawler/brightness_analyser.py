@@ -6,7 +6,7 @@ class BrightnessAnalyser:
     def process_image(self, image):
         # Cover the upper half of the image with black color
         height, width = image.shape[:2]
-        image[:height // 2, :] = [0, 0, 0]  # Set upper half to black
+        image[:height // 2, :, :] = 0  # Set upper half to black
 
         # Convert the image to grayscale
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
