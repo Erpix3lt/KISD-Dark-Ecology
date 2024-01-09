@@ -10,29 +10,19 @@ GPIO.setup(servo_pin, GPIO.OUT)
 pwm = GPIO.PWM(servo_pin, 50)
 pwm.start(0)
 
-def set_angle(angle):
-    duty_cycle = 2 + (angle / 18)
-    GPIO.output(servo_pin, True)
+def set_speed(speed):
+    # Map speed from -100 to 100 to a duty cycle between 2 and 12
+    duty_cycle = 2 + (speed / 100) * 10
     pwm.ChangeDutyCycle(duty_cycle)
-    time.sleep(1)
-    GPIO.output(servo_pin, False)
-    pwm.ChangeDutyCycle(0)
 
 try:
     while True:
-        # Move the servo to 0 degrees
-        set_angle(0)
-        time.sleep(1)
-
-        # Move the servo to 90 degrees
-        set_angle(90)
-        time.sleep(1)
-
-        # Move the servo to 180 degrees
-        set_angle(180)
+        # Move the servo in one direction (clockwise)
+        set_speed(20)  # You can adjust the speed if needed
         time.sleep(1)
 
 except KeyboardInterrupt:
-    # Clean up GPIO on Ctrl+C
+    # Stop the servo on Ctrl+C
+    set_speed(0)
     pwm.stop()
     GPIO.cleanup()
