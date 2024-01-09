@@ -12,17 +12,21 @@ pwm.start(0)
 
 def set_speed(speed):
     # Map speed from -100 to 100 to a duty cycle between 2 and 12
-    duty_cycle = 2 + (speed / 100) * 10
+    duty_cycle = 2 + ((-speed) / 100) * 10
     pwm.ChangeDutyCycle(duty_cycle)
 
 try:
     while True:
-        # Move the servo in one direction (clockwise)
-        set_speed(20)  # You can adjust the speed if needed
+        # Move the servo in the counterclockwise direction
+        set_speed(50)  # You can adjust the speed if needed
         time.sleep(1)
-
 except KeyboardInterrupt:
-    # Stop the servo on Ctrl+C
+    # Stop the servo on any other exception
+    set_speed(0)
+    pwm.stop()
+    GPIO.cleanup()
+finally:
+    # Stop the servo on exit
     set_speed(0)
     pwm.stop()
     GPIO.cleanup()
