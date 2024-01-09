@@ -14,7 +14,9 @@ Clone Project
 ## Get Light Detection Running
 
 ## Get Servo Running
-Install requirement for project
+Connect Servo to GPIO 26 and Ground, Power to 10V
+
+
 
 
 
