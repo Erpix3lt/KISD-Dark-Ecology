@@ -1,32 +1,37 @@
 import RPi.GPIO as GPIO
 import time
 
-# Set the GPIO mode and specify the pin number
-servo_pin = 26
+# Set the GPIO mode to BCM
 GPIO.setmode(GPIO.BCM)
+
+# Define the GPIO pin for the servo
+servo_pin = 18
+
+# Set up the GPIO pin for output
 GPIO.setup(servo_pin, GPIO.OUT)
 
-# Create a PWM object with a frequency of 50Hz
+# Create a PWM object with a frequency of 50 Hz
 pwm = GPIO.PWM(servo_pin, 50)
-pwm.start(0)
 
-def set_speed(speed):
-    # Map speed from -100 to 100 to a duty cycle between 2 and 12
-    duty_cycle = 2 + ((-speed) / 100) * 10
-    pwm.ChangeDutyCycle(duty_cycle)
+# Start PWM with a duty cycle of 7.5% (neutral position for most servos)
+pwm.start(7.5)
 
 try:
+    print("Servo is moving. Press Ctrl+C to stop.")
+    
+    # Run the servo continuously in one direction
     while True:
-        # Move the servo in the counterclockwise direction
-        set_speed(50)  # You can adjust the speed if needed
-        time.sleep(1)
+        # You can adjust the duty cycle to control the speed and direction
+        # For continuous rotation servos, values below 7.5% move in one direction,
+        # and values above 7.5% move in the opposite direction.
+        # Experiment with the values to find the desired speed.
+        pwm.ChangeDutyCycle(10)
+        time.sleep(0.1)
+
 except KeyboardInterrupt:
-    # Stop the servo on any other exception
-    set_speed(0)
-    pwm.stop()
-    GPIO.cleanup()
+    print("Stopping servo movement.")
+
 finally:
-    # Stop the servo on exit
-    set_speed(0)
+    # Clean up GPIO on program exit
     pwm.stop()
     GPIO.cleanup()
