@@ -18,7 +18,7 @@ def set_speed(speed):
 try:
     while True:
         # Move the servo in one direction (clockwise)
-        set_speed(-20)  # You can adjust the speed if needed
+        set_speed(20)  # You can adjust the speed if needed
         time.sleep(1)
 
 except KeyboardInterrupt:
