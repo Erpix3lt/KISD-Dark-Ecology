@@ -14,10 +14,6 @@ class Crawler():
         self.brightness_analyser = BrightnessAnalyser()
         self.MUTE_SERVO = os.getenv("MUTE_SERVO", False)
         self.logger = Logger()
-        logging.info("This is a info message")
-        logging.debug("This is a debug message")
-        logging.warn("This is a warning message")
-
         if not self.MUTE_SERVO:
             self.servo_service = ServoService()
 
@@ -32,8 +28,9 @@ class Crawler():
     def run(self):
         while True:
             image = self.vision_service.capture_array()
-            is_left = self.brightness_analyser.process_image(image)
-            
+            is_left, image = self.brightness_analyser.process_image(image)
+            if logging.DEBUG:
+                self.logger.save_analysed_images_to_web_server(image)
             if is_left:
                 logging.info("Bright spot is on the left.")
                 if not self.MUTE_SERVO:
