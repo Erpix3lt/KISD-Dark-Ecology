@@ -17,13 +17,11 @@ class Crawler():
 
     def start(self):
         self.vision_service.start()
-        if not self.MUTE_SERVO:
-            self.servo_service.start()
 
     def stop(self):
-        self.vision_service.stop()
+        self.vision_service.close()
         if not self.MUTE_SERVO:
-            self.servo_service.stop()
+            self.servo_service.close()
 
     def run(self):
         while True:

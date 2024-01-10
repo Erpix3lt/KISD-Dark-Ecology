@@ -9,7 +9,7 @@ class VisionService:
         self.picam2.start()
         logging.debug("Camera started")
 
-    def stop(self):
+    def close(self):
         self.picam2.stop()
         self.picam2.close()
         logging.debug("Camera stopped")
