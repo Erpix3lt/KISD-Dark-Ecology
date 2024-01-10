@@ -29,11 +29,11 @@ class Crawler():
             is_left = self.brightness_analyser.process_image(image)
             
             if is_left:
-                logging.warn("Bright spot is on the left.")
+                logging.info("Bright spot is on the left.")
                 if not self.MUTE_SERVO:
                     self.servo_service.go_left()
             else:
-                logging.warn("Bright spot is on the right.")
+                logging.info("Bright spot is on the right.")
                 if not self.MUTE_SERVO:
                     self.servo_service.go_right()
 
