@@ -12,15 +12,11 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    args = parse_args()
-    print(args)
-
-
     vision_service = VisionService()
-    brightness_analyser = BrightnessAnalyser()
-    #servo_service = ServoService()
-
     vision_service.start()
+    brightness_analyser = BrightnessAnalyser()
+    if not args.no_servo:
+        servo_service = ServoService()
 
     try:
         while True:
@@ -31,13 +27,13 @@ if __name__ == "__main__":
                 print("Bright spot is on the left.")
                 if not args.no_servo:
                     print("Now moving towards the left.")
-                    #servo_service.go_left()
+                    servo_service.go_left()
                     print("Finished moving towards the left.")
             else:
                 print("Bright spot is on the right.")
                 if not args.no_servo:
                     print("Now moving towards the right.")
-                    #servo_service.go_right()
+                    servo_service.go_right()
                     print("Finished moving towards the right.")
 
             # Implement scanning for the bright spot on the current position here. Should it exceed a certain threshold, stop the robot for some time.
@@ -45,5 +41,5 @@ if __name__ == "__main__":
         pass
     finally:
         vision_service.stop()
-        #if not args.no_servo:
-            #servo_service.stop()
+        if not args.no_servo:
+            servo_service.stop()

@@ -5,6 +5,7 @@ import logging
 class ServoService:
 
     def __init__(self, right_servo_pin = 26, left_servo_pin = 13, start_position = 7.5):
+        GPIO.cleanup()
         # Set the GPIO mode to BCM
         GPIO.setmode(GPIO.BCM)
         # Define both servo pins as outputs
