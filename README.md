@@ -61,4 +61,4 @@ Logic architecture approach 2:
 
 Problems arising:
 - Due to the narrow fov, only the viewable is scanned for the brightest light. Implement an algorythm to scan 360° for the brightest point and compare.
-- When do we settle? Should the robot be in continuos motion?
+- When do we settle? Should the robot be in continuos motion? Attach a light sensor to the bottom of the robot, If a certain treshhold of brightness is reach settle for a while. 
