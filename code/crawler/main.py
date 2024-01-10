@@ -1,6 +1,7 @@
 from vision_service import VisionService
 from brightness_analyser import BrightnessAnalyser
 from servo_service import ServoService
+from logger import Logger
 import logging
 import time
 import os 
@@ -12,6 +13,11 @@ class Crawler():
         self.vision_service = VisionService()
         self.brightness_analyser = BrightnessAnalyser()
         self.MUTE_SERVO = os.getenv("MUTE_SERVO", False)
+        self.logger = Logger()
+        logging.info("This is a info message")
+        logging.debug("This is a debug message")
+        logging.warn("This is a warning message")
+
         if not self.MUTE_SERVO:
             self.servo_service = ServoService()
 
