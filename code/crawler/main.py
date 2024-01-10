@@ -24,13 +24,13 @@ if __name__ == "__main__":
             is_left = brightness_analyser.process_image(image)
             
             if is_left:
-                logging.debug("Bright spot is on the left.")
+                logging.warn("Bright spot is on the left.")
                 if not args.no_servo:
                     logging.debug("Now moving towards the left.")
                     servo_service.go_left()
                     logging.debug("Finished moving towards the left.")
             else:
-                logging.debug("Bright spot is on the right.")
+                logging.warn("Bright spot is on the right.")
                 if not args.no_servo:
                     logging.debug("Now moving towards the right.")
                     servo_service.go_right()
