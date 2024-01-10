@@ -1,5 +1,7 @@
 import cv2
 import logging
+import os
+
 
 class BrightnessAnalyser:
 
@@ -22,5 +24,6 @@ class BrightnessAnalyser:
 
         logging.debug("Brightness: %f", max_val)
         logging.debug("Is in lower-left quarter: %r", is_lower_left)
+
 
         return is_lower_left
