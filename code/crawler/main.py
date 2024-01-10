@@ -2,7 +2,7 @@ from vision_service import VisionService
 from brightness_analyser import BrightnessAnalyser
 from servo_service import ServoService
 import argparse
-import time
+import logging
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Process images and control servos based on brightness analysis.')
@@ -24,17 +24,17 @@ if __name__ == "__main__":
             is_left = brightness_analyser.process_image(image)
             
             if is_left:
-                print("Bright spot is on the left.")
+                logging.debug("Bright spot is on the left.")
                 if not args.no_servo:
-                    print("Now moving towards the left.")
+                    logging.debug("Now moving towards the left.")
                     servo_service.go_left()
-                    print("Finished moving towards the left.")
+                    logging.debug("Finished moving towards the left.")
             else:
-                print("Bright spot is on the right.")
+                logging.debug("Bright spot is on the right.")
                 if not args.no_servo:
-                    print("Now moving towards the right.")
+                    logging.debug("Now moving towards the right.")
                     servo_service.go_right()
-                    print("Finished moving towards the right.")
+                    logging.debug("Finished moving towards the right.")
 
             # Implement scanning for the bright spot on the current position here. Should it exceed a certain threshold, stop the robot for some time.
     except KeyboardInterrupt:
