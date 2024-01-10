@@ -21,12 +21,10 @@ class BrightnessAnalyser:
         logging.debug("Is in lower-left quarter: %r", is_lower_left)
 
         if logging.debug:
-            # Create a grayscale copy of the image for logging
-            gray_image = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2GRAY)
-            cv2.circle(gray_image, (max_loc[0], max_loc[1] + height // 2), 10, (0, 0, 255), 2)
-            cv2.line(gray_image, (lower_half_width, 0), (lower_half_width, height), (255, 0, 0), 2)
-            cv2.imshow("Logged Image", gray_image)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            # Draw on the original image for debugging
+            cv2.circle(image, (max_loc[0], max_loc[1] + height // 2), 10, (0, 0, 255), 2)
+            cv2.line(image, (lower_half_width, 0), (lower_half_width, height), (255, 0, 0), 2)
 
+        # Return the modified image for logging
         return is_lower_left, image
+
