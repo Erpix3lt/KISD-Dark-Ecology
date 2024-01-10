@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     vision_service = VisionService()
     brightness_analyser = BrightnessAnalyser()
-    servo_service = ServoService()
+    #servo_service = ServoService()
 
     vision_service.start()
 
@@ -45,5 +45,5 @@ if __name__ == "__main__":
         pass
     finally:
         vision_service.stop()
-        if not args.no_servo:
-            servo_service.stop()
+        #if not args.no_servo:
+            #servo_service.stop()
