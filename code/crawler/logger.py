@@ -2,6 +2,7 @@ import cv2
 import os
 import time
 import logging
+from nanoid import generate
 from dotenv import load_dotenv
 
 class Logger:
@@ -45,6 +46,7 @@ class Logger:
             os.makedirs(folder)
 
         timestamp = time.strftime("%Y%m%d%H%M%S")
-        filename = f"{folder}/image_{timestamp}.jpg"
+        image_id = generate(size=4)
+        filename = f"{folder}/image_{timestamp}_{image_id}.jpg"
         cv2.imwrite(filename, image)
         logging.debug(f"Result saved: {filename}")
