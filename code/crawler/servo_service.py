@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import logging
+import time
 
 class ServoService:
 
@@ -89,3 +90,8 @@ class ServoService:
         self.left_pwm.stop()
         GPIO.cleanup()
 
+servoService = ServoService()
+
+while True:
+    servoService.go_backward()
+    time.sleep(2)
