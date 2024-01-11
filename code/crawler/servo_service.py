@@ -55,21 +55,12 @@ class ServoService:
         logging.debug("Moving forward with additional_speed: %d and duration: %d", additional_speed, duration)
         self.right_pwm.ChangeDutyCycle(7.5 - additional_speed)
         self.left_pwm.ChangeDutyCycle(7.5 - additional_speed)
-        time.sleep(duration)
-        # bring both pwm into a neutral position
-        logging.debug("Bringing both pwm into a neutral position")
-        self.right_pwm.ChangeDutyCycle(7.5)
-        self.left_pwm.ChangeDutyCycle(7.5)
 
     def go_backward(self, additional_speed = 5, duration = 1):
         # bring both pwm into a neutral position
         logging.debug("Moving backward with additional_speed: %d and duration: %d", additional_speed, duration)
         self.right_pwm.ChangeDutyCycle(7.5 + additional_speed)
         self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
-        time.sleep(duration)
-        # bring both pwm into a neutral position
-        logging.debug("Bringing both pwm into a neutral position")
-        
 
     def rotate(self, additional_speed = 5, duration = 1):
         #implementation of a rotation
