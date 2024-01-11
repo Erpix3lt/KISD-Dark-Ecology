@@ -20,7 +20,7 @@ class BrightnessAnalyser:
         logging.debug("Is in lower-left quarter: %r", is_lower_left)
 
         if logging.getLogger().isEnabledFor(logging.DEBUG):
-            cv2.circle(image, (max_loc[0], max_loc[1] + height // 2), 10, (0, 0, 255), 2)
+            cv2.circle(image, (max_loc[0], max_loc[1] + height // 2), 10, (255, 0, 0), 2)
             cv2.line(image, (lower_half_width, 0), (lower_half_width, height), (255, 0, 0), 2)
 
         return is_lower_left, image
