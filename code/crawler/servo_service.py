@@ -69,8 +69,7 @@ class ServoService:
         time.sleep(duration)
         # bring both pwm into a neutral position
         logging.debug("Bringing both pwm into a neutral position")
-        self.right_pwm.ChangeDutyCycle(7.5)
-        self.left_pwm.ChangeDutyCycle(7.5)
+        
 
     def rotate(self, additional_speed = 5, duration = 1):
         #implementation of a rotation
