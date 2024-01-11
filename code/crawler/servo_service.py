@@ -69,6 +69,12 @@ class ServoService:
         self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
         time.sleep(duration)
 
+    def go_specific_speed(self, specific_speed, duration):
+        logging.debug("Moving with specific speed: %d and duration %d", specific_speed, duration)
+        self.right_pwm.ChangeDutyCycle(specific_speed)
+        self.left_pwm.ChangeDutyCycle(specific_speed)
+        time.sleep(duration)
+
     def rotate_360(self):
         #implementation of a 360 degree rotation
         logging.debug("Rotating 360 degrees")
@@ -83,15 +89,13 @@ class ServoService:
 servoService = ServoService()
 
 while True:
-    print("Going backward")
-    servoService.go_backward()
-    time.sleep(10)
-    print("Stopped going backward")
-    print("Going resting")
-    servoService.stop()
-    time.sleep(10)
-    print("Stopped resting")
-    print("Going forward")
-    servoService.go_forward()
-    time.sleep(10)
-    print("Stopped going forward")
+    try:
+        speed = float(input("Enter speed: "))  # Prompt user to enter speed
+        duration = float(input("Enter duration: "))  # Prompt user to enter duration
+
+        servoService.go_specific_speed(speed, duration)  # Call the goSpecificSpeed method with entered variables
+
+    except ValueError:
+        print("Invalid input. Please enter numeric values for speed and duration.")
+
+    
