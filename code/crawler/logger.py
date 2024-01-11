@@ -2,8 +2,8 @@ import cv2
 import os
 import time
 import logging
-from nanoid import generate
 from dotenv import load_dotenv
+import random
 
 class Logger:
     def __init__(self):
@@ -41,12 +41,15 @@ class Logger:
         self.save_image(image, folder=self.images_folder)
 
     @staticmethod
-    def save_image(image, folder="results"):
+    def save_image(self, image, folder="results"):
         if not os.path.exists(folder):
             os.makedirs(folder)
 
         timestamp = time.strftime("%Y%m%d%H%M%S")
-        image_id = generate(size=4)
-        filename = f"{folder}/image_{timestamp}_{image_id}.jpg"
+        filename = f"{folder}/image_{timestamp}_{self.generate_image_id}.jpg"
         cv2.imwrite(filename, image)
         logging.debug(f"Result saved: {filename}")
+
+    def generate_image_id(self):
+        random_id = ''.join(random.choice('abcdefghijklmnopqrstuvwxyz0123456789') for i in range(4))
+        return random_id
