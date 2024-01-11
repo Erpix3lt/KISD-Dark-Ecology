@@ -5,7 +5,14 @@ import time
 
 class ServoService:
 
-    def __init__(self, right_servo_pin = 26, left_servo_pin = 13, start_position = 7.5):
+    ###############################
+    # Servo Notes                 #
+    # The center position is 7    #
+    # The right position is 12    #
+    # The left position is 2      #
+    ###############################
+
+    def __init__(self, right_servo_pin = 26, left_servo_pin = 13, center_position = 7):
         GPIO.cleanup()
         # Set the GPIO mode to BCM
         GPIO.setmode(GPIO.BCM)
@@ -18,55 +25,49 @@ class ServoService:
         self.right_pwm = GPIO.PWM(self.right_servo_pin, 50)
         self.left_pwm = GPIO.PWM(self.left_servo_pin, 50)
         # bring both pwm into a neutral position
-        self.right_pwm.start(start_position)
-        self.left_pwm.start(start_position)
+        self.right_pwm.start(center_position)
+        self.left_pwm.start(center_position)
         logging.debug("Initialised ServoService with the following values: right_servo_pin: %d, left_servo_pin: %d", self.right_servo_pin, self.left_servo_pin)
 
-    def go_left(self, additional_speed = 5, curve_steepness = 2,  duration = 1):
+    def go_left(self, additional_speed = 3, curve_steepness = 0.5,  duration = 1):
         # during the duration of 1 second move in the left direction
         logging.debug("Moving left with additional_speed: %d, curve_steepness: %d and duration: %d", additional_speed, curve_steepness, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 + additional_speed)
-        self.left_pwm.ChangeDutyCycle(7.5 + (additional_speed / curve_steepness))
-        time.sleep(duration)
-        # bring both pwm into a neutral position
-        logging.debug("Bringing both pwm into a neutral position")
-        self.right_pwm.ChangeDutyCycle(7.5)
-        self.left_pwm.ChangeDutyCycle(7.5)
+        self.right_pwm.ChangeDutyCycle(7 + additional_speed)
+        self.left_pwm.ChangeDutyCycle(7 + curve_steepness)
+        time.sleep(duration)        
 
-    def go_right(self, additional_speed = 5, curve_steepness = 2, duration = 1):
+    def go_right(self, additional_speed = 3, curve_steepness = 0.5, duration = 1):
         # during the duration of 1 second move in the right direction
         logging.debug("Moving right with additional_speed: %d, curve_steepness: %d and duration: %d", additional_speed, curve_steepness, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 + (additional_speed / curve_steepness))
+        self.right_pwm.ChangeDutyCycle(7.5 + curve_steepness)
         self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
         time.sleep(duration)
-        # bring both pwm into a neutral position
-        logging.debug("Bringing both pwm into a neutral position")
-        self.right_pwm.ChangeDutyCycle(7.5)
-        self.left_pwm.ChangeDutyCycle(7.5)
 
-    def stop(self):
+    def stop(self, duration = 1):
         # bring both pwm into a neutral position
         logging.debug("Stopping, bringing both pwm into a neutral position")
-        self.right_pwm.ChangeDutyCycle(7.5)
-        self.left_pwm.ChangeDutyCycle(7.5)
+        self.right_pwm.ChangeDutyCycle(7)
+        self.left_pwm.ChangeDutyCycle(7)
+        time.sleep(duration)
 
-    def go_forward(self, additional_speed = 5, duration = 1):
-        # bring both pwm into a neutral position
+    def go_forward(self, additional_speed = 3, duration = 1):
+        # bring both pwm into a neutral forward position
         logging.debug("Moving forward with additional_speed: %d and duration: %d", additional_speed, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 - additional_speed)
-        self.left_pwm.ChangeDutyCycle(7.5 - additional_speed)
+        self.right_pwm.ChangeDutyCycle(7 + additional_speed)
+        self.left_pwm.ChangeDutyCycle(7 + additional_speed)
+        time.sleep(duration)
 
-    def go_backward(self, additional_speed = 5, duration = 1):
-        # bring both pwm into a neutral position
+    def go_backward(self, additional_speed = 3, duration = 1):
+        # bring both pwm into a neutral backward position
         logging.debug("Moving backward with additional_speed: %d and duration: %d", additional_speed, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 + additional_speed)
-        self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
+        self.right_pwm.ChangeDutyCycle(7 - additional_speed)
+        self.left_pwm.ChangeDutyCycle(7 - additional_speed)
+        time.sleep(duration)
 
-    def rotate(self, additional_speed = 5, duration = 1):
-        #implementation of a rotation
+    def rotate(self, additional_speed = 3, duration = 1):
         logging.debug("Rotating with additional_speed: %d and duration: %d", additional_speed, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 - additional_speed)
-        self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
+        self.right_pwm.ChangeDutyCycle(7 - additional_speed)
+        self.left_pwm.ChangeDutyCycle(7 + additional_speed)
         time.sleep(duration)
 
     def go_specific_speed(self, specific_speed, duration):
@@ -89,13 +90,19 @@ class ServoService:
 servoService = ServoService()
 
 while True:
-    try:
-        speed = float(input("Enter speed: "))  # Prompt user to enter speed
-        duration = float(input("Enter duration: "))  # Prompt user to enter duration
-
-        servoService.go_specific_speed(speed, duration)  # Call the goSpecificSpeed method with entered variables
-
-    except ValueError:
-        print("Invalid input. Please enter numeric values for speed and duration.")
-
+    print("going forward")
+    servoService.go_forward(duration=5)
+    print("going backward")
+    servoService.go_backward(duration=5)
+    print("going left")
+    servoService.go_left(duration=5)
+    print("going right")
+    servoService.go_right(duration=5)
+    print("rotating")
+    servoService.rotate(duration=5)
+    print("stopping")
+    servoService.stop(duration=5)
+    print("rotating 360")
+    servoService.rotate_360()
     
+
