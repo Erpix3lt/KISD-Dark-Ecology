@@ -38,9 +38,8 @@ class Logger:
             os.makedirs(self.images_folder)
 
     def save_analysed_images_to_web_server(self, image):
-        self.save_image(image, folder=self.images_folder)
+        self.save_image(image=image, folder=self.images_folder)
 
-    @staticmethod
     def save_image(self, image, folder="results"):
         if not os.path.exists(folder):
             os.makedirs(folder)
