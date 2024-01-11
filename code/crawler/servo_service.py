@@ -53,8 +53,8 @@ class ServoService:
     def go_forward(self, additional_speed = 5, duration = 1):
         # bring both pwm into a neutral position
         logging.debug("Moving forward with additional_speed: %d and duration: %d", additional_speed, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 + additional_speed)
-        self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
+        self.right_pwm.ChangeDutyCycle(7.5 - additional_speed)
+        self.left_pwm.ChangeDutyCycle(7.5 - additional_speed)
         time.sleep(duration)
         # bring both pwm into a neutral position
         logging.debug("Bringing both pwm into a neutral position")
@@ -64,8 +64,8 @@ class ServoService:
     def go_backward(self, additional_speed = 5, duration = 1):
         # bring both pwm into a neutral position
         logging.debug("Moving backward with additional_speed: %d and duration: %d", additional_speed, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 - additional_speed)
-        self.left_pwm.ChangeDutyCycle(7.5 - additional_speed)
+        self.right_pwm.ChangeDutyCycle(7.5 + additional_speed)
+        self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
         time.sleep(duration)
         # bring both pwm into a neutral position
         logging.debug("Bringing both pwm into a neutral position")
@@ -92,5 +92,15 @@ class ServoService:
 servoService = ServoService()
 
 while True:
+    print("Going backward")
     servoService.go_backward()
-    time.sleep(2)
+    time.sleep(10)
+    print("Stopped going backward")
+    print("Going resting")
+    servoService.stop()
+    time.sleep(10)
+    print("Stopped resting")
+    print("Going forward")
+    servoService.go_forward()
+    time.sleep(10)
+    print("Stopped going forward")
