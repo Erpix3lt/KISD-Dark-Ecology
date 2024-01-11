@@ -15,17 +15,31 @@ class TestBrightnessAnalyser(unittest.TestCase):
         for analysed_image in cls.analysed_images:
             cls.logger.save_analysed_images_to_web_server(analysed_image)
 
-    def test_process_image_lower_left(self):
+    def test_process_image_left(self):
         image = cv2.imread('assets/bright_spot_lower_left.jpg')
         analyser = BrightnessAnalyser()
         result, analysed_image = analyser.process_image(image)
         self.analysed_images.append(analysed_image)
         self.assertTrue(result)
 
-    def test_process_image_lower_right(self):
+    def test_process_image_lower_left(self):
+        image = cv2.imread('assets/bright_spot_lower_left.jpg')
+        analyser = BrightnessAnalyser()
+        result, analysed_image = analyser.process_image(image, analyse_lower_half=True)
+        self.analysed_images.append(analysed_image)
+        self.assertTrue(result)
+
+    def test_process_image_right(self):
         image = cv2.imread('assets/bright_spot_lower_right.jpg')
         analyser = BrightnessAnalyser()
         result, analysed_image = analyser.process_image(image)
+        self.analysed_images.append(analysed_image)
+        self.assertFalse(result)
+
+    def test_process_image_lower_right(self):
+        image = cv2.imread('assets/bright_spot_lower_right.jpg')
+        analyser = BrightnessAnalyser()
+        result, analysed_image = analyser.process_image(image, analyse_lower_half=True)
         self.analysed_images.append(analysed_image)
         self.assertFalse(result)
 
