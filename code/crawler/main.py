@@ -34,10 +34,12 @@ class Crawler():
             if is_left:
                 logging.info("Bright spot is on the left.")
                 if not self.MUTE_SERVO:
+                    print("Hello from left servo")
                     self.servo_service.go_left()
             else:
                 logging.info("Bright spot is on the right.")
                 if not self.MUTE_SERVO:
+                    print("Hello from right servo")
                     self.servo_service.go_right()
 
             time.sleep(2)
