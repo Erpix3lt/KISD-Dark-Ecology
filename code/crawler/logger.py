@@ -12,10 +12,8 @@ class Logger:
         # Set up logging
         log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
         logging.basicConfig(level=log_level)
-
-        # Delete existing _images folder and create a new one
-        self.reset_images_folder()
         self.images_folder = "../web_server/_images"
+        self.reset_images_folder()
 
         if log_level == "DEBUG":
             logging.debug("Debug logging enabled")
@@ -25,7 +23,7 @@ class Logger:
         if os.path.exists(self.images_folder):
             try:
                 for file in os.listdir(self.images_folder):
-                    file_path = os.path.join(images_folder, file)
+                    file_path = os.path.join(self.images_folder, file)
                     try:
                         if os.path.isfile(file_path):
                             os.unlink(file_path)
