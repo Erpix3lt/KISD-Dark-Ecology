@@ -12,18 +12,15 @@ class Crawler():
         load_dotenv()
         self.vision_service = VisionService()
         self.brightness_analyser = BrightnessAnalyser()
-        self.MUTE_SERVO = os.getenv("MUTE_SERVO", False)
         self.logger = Logger()
-        if not self.MUTE_SERVO:
-            self.servo_service = ServoService()
+        self.servo_service = ServoService()
 
     def start(self):
         self.vision_service.start()
 
     def stop(self):
         self.vision_service.close()
-        if not self.MUTE_SERVO:
-            self.servo_service.close()
+        self.servo_service.close()
 
     def run(self):
         while True:
@@ -33,14 +30,12 @@ class Crawler():
                 self.logger.save_analysed_images_to_web_server(image)
             if is_left:
                 logging.info("Bright spot is on the left.")
-                if not self.MUTE_SERVO:
-                    print("Hello from left servo")
-                    self.servo_service.go_left()
+                print("Hello from left servo")
+                self.servo_service.go_left()
             else:
                 logging.info("Bright spot is on the right.")
-                if not self.MUTE_SERVO:
-                    print("Hello from right servo")
-                    self.servo_service.go_right()
+                print("Hello from right servo")
+                self.servo_service.go_right()
 
             time.sleep(2)
 
