@@ -45,7 +45,7 @@ class Logger:
             os.makedirs(folder)
 
         timestamp = time.strftime("%Y%m%d%H%M%S")
-        filename = f"{folder}/image_{timestamp}_{self.generate_image_id}.jpg"
+        filename = f"{folder}/image_{timestamp}_{self.generate_image_id()}.jpg"
         cv2.imwrite(filename, image)
         logging.debug(f"Result saved: {filename}")
 
