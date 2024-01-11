@@ -36,6 +36,13 @@ class TestBrightnessAnalyser(unittest.TestCase):
         self.analysed_images.append(analysed_image)
         self.assertFalse(result)
 
+    def test_process_image_lower_right_gaussian_blur(self):
+        image = cv2.imread('assets/bright_spot_lower_right.jpg')
+        analyser = BrightnessAnalyser()
+        result, analysed_image = analyser.process_image(image, blur_kernel_size=(11, 11), blur_sigma=0)
+        self.analysed_images.append(analysed_image)
+        self.assertTrue(result)
+
     def test_process_image_lower_right(self):
         image = cv2.imread('assets/bright_spot_lower_right.jpg')
         analyser = BrightnessAnalyser()
