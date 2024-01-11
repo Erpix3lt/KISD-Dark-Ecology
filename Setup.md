@@ -34,6 +34,9 @@ sudo apt install -y python3-picamera2
 ## Get Servo Running
 Connect Servo to GPIO 26 and Ground, Power to 10V
 
+### Servo Notes
+Going Backward Everything under <7 6 being the fastest 1 is not moving
+Going Forward Everything above >7 11 being the fastest 7.5 the slowest
 
 
 
