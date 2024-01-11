@@ -5,9 +5,15 @@ from logger import Logger
 
 class TestBrightnessAnalyser(unittest.TestCase):
 
-    def setUp(self):
-        self.logger = Logger()
-        self.analysed_images = []
+    @classmethod
+    def setUpClass(cls):
+        cls.logger = Logger()
+        cls.analysed_images = []
+
+    @classmethod
+    def tearDownClass(cls):
+        for analysed_image in cls.analysed_images:
+            cls.logger.save_analysed_images_to_web_server(analysed_image)
 
     def test_process_image_lower_left(self):
         image = cv2.imread('assets/bright_spot_lower_left.jpg')
@@ -29,10 +35,6 @@ class TestBrightnessAnalyser(unittest.TestCase):
         result, analysed_images = analyser.process_image(image)
         self.analysed_images.append(analysed_images)
         self.assertIsNotNone(result)
-
-    def tearDown(self):
-        for analysed_image in self.analysed_images:
-            self.logger.save_analysed_images_to_web_server(analysed_image)
 
 if __name__ == '__main__':
     unittest.main()
