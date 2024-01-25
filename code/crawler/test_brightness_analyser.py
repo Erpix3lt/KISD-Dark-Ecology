@@ -1,6 +1,6 @@
 import unittest
 import cv2
-from brightness_self.brightness_analyser import BrightnessAnalyser
+from brightness_analyser import BrightnessAnalyser
 from logger import Logger
 
 class TestBrightnessAnalyser(unittest.TestCase):
