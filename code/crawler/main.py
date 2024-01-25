@@ -11,7 +11,7 @@ class Crawler():
         load_dotenv()
         self.logger = Logger()
         self.vision_service = VisionService()
-        self.brightness_analyser = BrightnessAnalyser(self.caputere_baseline_images)
+        self.brightness_analyser = BrightnessAnalyser(self.caputere_baseline_images())
         self.servo_service = ServoService()
 
     def caputere_baseline_images(self, quantity=5):
