@@ -51,8 +51,10 @@ class BrightnessAnalyser:
         currentBrightness = self.analyse_overall_brightness(image)
         logging.debug("Current brightness: %f", currentBrightness)
         if currentBrightness > threshhold:
+            logging.debug("Current brightness is " + currentBrightness + " and is above threshhold " + threshhold)
             return True
         else:
+            logging.debug("Current brightness is " + currentBrightness + " and is below threshhold " + threshhold)
             return False
 
         
