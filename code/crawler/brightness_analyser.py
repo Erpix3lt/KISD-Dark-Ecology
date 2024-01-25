@@ -45,16 +45,16 @@ class BrightnessAnalyser:
             return np.average(image)
         
     
-    def check_if_above_threshhold(self, image, threshhold = None):
-        if threshhold == None:
-            threshhold = self.baseline_brightness * self.mulitplier
-        currentBrightness = self.analyse_overall_brightness(image)
-        logging.debug("Current brightness: %f", currentBrightness)
-        if currentBrightness > threshhold:
-            logging.debug("Current brightness is " + currentBrightness + " and is above threshhold " + threshhold)
+    def check_if_above_treshold(self, image, treshold = None):
+        if treshold == None:
+            treshold = self.baseline_brightness * self.mulitplier
+        current_brightness = self.analyse_overall_brightness(image)
+        logging.debug("Current brightness: %f", current_brightness)
+        if current_brightness > treshold:
+            logging.debug("Current brightness is " + str(current_brightness) + " and is above threshold " + str(treshold))
             return True
         else:
-            logging.debug("Current brightness is " + currentBrightness + " and is below threshhold " + threshhold)
+            logging.debug("Current brightness is " + str(current_brightness) + " and is below threshold " + str(treshold))
             return False
 
         
