@@ -11,6 +11,7 @@ class BrightnessAnalyser:
         for image in images:
             self.baseline_brightness += self.analyse_overall_brightness(image)
         self.baseline_brightness = self.baseline_brightness / len(images)
+        logging.debug("Baseline brightness: %f", self.baseline_brightness)
         self.mulitplier = 1.5
 
     def process_image(self, image, analyse_lower_half=False, blur_kernel_size=(5, 5), blur_sigma=0):
@@ -47,7 +48,9 @@ class BrightnessAnalyser:
     def check_if_above_threshhold(self, image, threshhold = None):
         if threshhold == None:
             threshhold = self.baseline_brightness * self.mulitplier
-        if self.analyse_overall_brightness(image) > threshhold:
+        currentBrightness = self.analyse_overall_brightness(image)
+        logging.debug("Current brightness: %f", currentBrightness)
+        if currentBrightness > threshhold:
             return True
         else:
             return False
