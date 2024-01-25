@@ -4,14 +4,16 @@ from servo_service import ServoService
 from logger import Logger
 import logging
 import time
-import os 
 from dotenv import load_dotenv
 
 class Crawler():
     def __init__(self):
         load_dotenv()
         self.vision_service = VisionService()
-        self.brightness_analyser = BrightnessAnalyser()
+        # Do a few test captures to get a baseline brightness
+        images = []
+        images.extend(self.vision_service.capture_array() for _ in range(5))
+        self.brightness_analyser = BrightnessAnalyser(images)
         self.logger = Logger()
         self.servo_service = ServoService()
 
@@ -30,12 +32,14 @@ class Crawler():
                 self.logger.save_analysed_images_to_web_server(image)
             if is_left:
                 logging.info("Bright spot is on the left.")
-                print("Hello from left servo")
                 self.servo_service.go_left()
             else:
                 logging.info("Bright spot is on the right.")
-                print("Hello from right servo")
                 self.servo_service.go_right()
+            if self.brightness_analyser.check_if_above_treshold(image):
+                logging.info("Bright spot is above threshold.")
+                self.servo_service.stop(duration=50)
+                self.servo_service.rotate(duration=50)
 
             time.sleep(2)
 
