@@ -11,6 +11,7 @@ class Crawler():
         load_dotenv()
         self.logger = Logger()
         self.vision_service = VisionService()
+        self.start()
         self.brightness_analyser = BrightnessAnalyser(self.caputere_baseline_images())
         self.servo_service = ServoService()
 
@@ -51,7 +52,6 @@ class Crawler():
 
 if __name__ == "__main__":
     crawler = Crawler()
-    crawler.start()
     try:
         crawler.run()
         # Implement scanning for the bright spot on the current position here. Should it exceed a certain threshold, stop the robot for some time.
