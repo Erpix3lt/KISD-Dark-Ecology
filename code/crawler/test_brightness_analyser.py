@@ -55,7 +55,7 @@ class TestBrightnessAnalyser(unittest.TestCase):
 
     def test_check_if_above_threshhold(self):
         image = cv2.imread('assets/white.jpg')
-        result = self.brightness_analyser.check_if_above_threshhold(image)
+        result = self.brightness_analyser.check_if_above_treshold(image)
         self.assertTrue(result)
 
 
