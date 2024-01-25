@@ -7,6 +7,7 @@ class BrightnessAnalyser:
 
     def __init__(self, images: []):
         # analyse the overall brightness of all images in the array and calculate the average, this should be the baseline brightness
+        self.baseline_brightness = 0
         for image in images:
             self.baseline_brightness += self.analyse_overall_brightness(image)
         self.baseline_brightness = self.baseline_brightness / len(images)
