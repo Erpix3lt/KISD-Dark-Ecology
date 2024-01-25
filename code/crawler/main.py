@@ -11,7 +11,7 @@ class Crawler():
         load_dotenv()
         self.logger = Logger()
         self.vision_service = VisionService()
-        self.start()
+        self.vision_service.start()
         self.brightness_analyser = BrightnessAnalyser(self.caputere_baseline_images())
         self.servo_service = ServoService()
 
@@ -21,9 +21,6 @@ class Crawler():
         for image in images:
             self.logger.save_images_to_web_server(image, tag="BASELINE")
         return images
-
-    def start(self):
-        self.vision_service.start()
 
     def stop(self):
         self.vision_service.close()
