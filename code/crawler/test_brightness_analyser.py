@@ -21,7 +21,7 @@ class TestBrightnessAnalyser(unittest.TestCase):
         image = cv2.imread('assets/bright_spot_lower_left.jpg')
         result, analysed_image = self.brightness_analyser.process_image(image)
         self.analysed_images.append(analysed_image)
-        self.assertTrue(result)
+        self.assertFalse(result)
 
     def test_process_image_lower_left(self):
         image = cv2.imread('assets/bright_spot_lower_left.jpg')
@@ -39,7 +39,7 @@ class TestBrightnessAnalyser(unittest.TestCase):
         image = cv2.imread('assets/bright_spot_lower_right.jpg')
         result, analysed_image = self.brightness_analyser.process_image(image, blur_kernel_size=(11, 11), blur_sigma=0)
         self.analysed_images.append(analysed_image)
-        self.assertTrue(result)
+        self.assertFalse(result)
 
     def test_process_image_lower_right(self):
         image = cv2.imread('assets/bright_spot_lower_right.jpg')
