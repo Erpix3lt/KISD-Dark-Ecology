@@ -47,7 +47,7 @@ class BrightnessAnalyser:
     def check_if_above_threshhold(self, image, threshhold = None):
         if threshhold == None:
             threshhold = self.baseline_brightness * self.mulitplier
-        if self.ananlyseOverallBrightness(image) > threshhold:
+        if self.analyse_overall_brightness(image) > threshhold:
             return True
         else:
             return False
