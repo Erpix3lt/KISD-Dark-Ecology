@@ -15,7 +15,7 @@ class TestBrightnessAnalyser(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         for analysed_image in cls.analysed_images:
-            cls.logger.save_analysed_images_to_web_server(analysed_image)
+            cls.logger.save_images_to_web_server(analysed_image)
 
     def test_process_image_left(self):
         image = cv2.imread('assets/bright_spot_lower_left.jpg')

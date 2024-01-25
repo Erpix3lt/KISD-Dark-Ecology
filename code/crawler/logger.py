@@ -9,7 +9,6 @@ class Logger:
     def __init__(self):
         # Load environment variables
         load_dotenv()
-
         # Set up logging
         log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
         logging.basicConfig(level=log_level)
@@ -37,15 +36,18 @@ class Logger:
                 logging.error(f"Error deleting {self.images_folder}: {e}")
             os.makedirs(self.images_folder)
 
-    def save_analysed_images_to_web_server(self, image):
-        self.save_image(image=image, folder=self.images_folder)
+    def save_images_to_web_server(self, image, tag=None):
+        if tag is None:
+            self.save_image(image=image, folder=self.images_folder)
+        else: 
+            self.save_image(image=image, folder=self.images_folder, tag=tag)
 
-    def save_image(self, image, folder="results"):
+    def save_image(self, image, folder="results", tag="A"):
         if not os.path.exists(folder):
             os.makedirs(folder)
 
         timestamp = time.strftime("%Y%m%d%H%M%S")
-        filename = f"{folder}/image_{timestamp}_{self.generate_image_id()}.jpg"
+        filename = f"{folder}/{tag}_{timestamp}_{self.generate_image_id()}.jpg"
         cv2.imwrite(filename, image)
         logging.debug(f"Result saved: {filename}")
 

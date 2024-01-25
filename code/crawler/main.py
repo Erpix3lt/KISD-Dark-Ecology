@@ -9,13 +9,17 @@ from dotenv import load_dotenv
 class Crawler():
     def __init__(self):
         load_dotenv()
-        self.vision_service = VisionService()
-        # Do a few test captures to get a baseline brightness
-        images = []
-        images.extend(self.vision_service.capture_array() for _ in range(5))
-        self.brightness_analyser = BrightnessAnalyser(images)
         self.logger = Logger()
+        self.vision_service = VisionService()
+        self.brightness_analyser = BrightnessAnalyser(self.caputere_baseline_images)
         self.servo_service = ServoService()
+
+    def caputere_baseline_images(self, quantity=5):
+        images = []
+        images.extend(self.vision_service.capture_array() for _ in range(quantity))
+        for image in images:
+            self.logger.save_images_to_web_server(image, tag="BASELINE")
+        return images
 
     def start(self):
         self.vision_service.start()
@@ -26,10 +30,11 @@ class Crawler():
 
     def run(self):
         while True:
+            print("is Logging debiúg:" , logging.DEBUG)
             image = self.vision_service.capture_array()
             is_left, image = self.brightness_analyser.process_image(image)
             if logging.DEBUG:
-                self.logger.save_analysed_images_to_web_server(image)
+                self.logger.save_images_to_web_server(image)
             if is_left:
                 logging.info("Bright spot is on the left.")
                 self.servo_service.go_left()
