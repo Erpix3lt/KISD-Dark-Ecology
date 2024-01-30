@@ -27,9 +27,10 @@ sudo apt-get install python3-opencv
 https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf
 sudo apt install -y python3-picamera2
 
+### Install GPIOZERO
+sudo apt install python3-gpiozero
+
 ### Run the main.py
-
-
 
 ## Get Servo Running
 Connect Servo to GPIO 26 and Ground, Power to 10V
