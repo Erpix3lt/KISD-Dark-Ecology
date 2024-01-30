@@ -5,6 +5,7 @@ from logger import Logger
 import logging
 import time
 from dotenv import load_dotenv
+from distance_analyser import DistanceAnalyser
 
 class Crawler():
     def __init__(self):
@@ -14,6 +15,7 @@ class Crawler():
         self.vision_service.start()
         self.brightness_analyser = BrightnessAnalyser(self.caputere_baseline_images())
         self.servo_service = ServoService()
+        self.distance_analyser = DistanceAnalyser()
 
     def caputere_baseline_images(self, quantity=5):
         images = []
@@ -43,7 +45,10 @@ class Crawler():
                 logging.info("Bright spot is above threshold.")
                 self.servo_service.stop(duration=50)
                 self.servo_service.rotate(duration=50)
-
+            if self.distance_analyser.is_Colliding():
+                logging.info("Collision detected. Stopping.")
+                self.servo_service.stop(duration=50)
+                self.servo_service.rotate(duration=50)
             time.sleep(2)
 
 
