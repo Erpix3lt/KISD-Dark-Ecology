@@ -33,11 +33,31 @@ sudo apt install python3-gpiozero
 ### Run the main.py
 
 ## Get Servo Running
-Connect Servo to GPIO 26 and Ground, Power to 10V
+Connect Servo to GPIO 26 the left one to GPIO 13 and Ground, Power to 10V
 
 ### Servo Notes
 Going Backward Everything under <7 6 being the fastest 1 is not moving
 Going Forward Everything above >7 11 being the fastest 7.5 the slowest
+
+## Get the crawler running
+For a bit of context:
+`cd` -> Change Directory
+`ssh`-> Connect over the wireless lan
+`python` -> executes the python code
+
+Hit enter after each command!
+
+1. Rename your I phone to Raspi-Hotspot, this is so the raspberry can connect to it. Then change your Iphones Hotspot password to Barcelona84
+2. Open the app Powershell on windows, alternativly open CMD on windows
+3. Your computer must also be connected to the same hotspot as the raspberry
+4. In either powershell or CMD type in the command: `ssh max@crawler.local`
+5. You are then prompted to enter the password, type in `crawler`, you might not see that you are typing in text, hit enter regardless when you are finished typing in.
+6. YOU ARE NOW ON THE RASPBERRY PI!! :)
+7.  Navigate to the correct folder, you can hit TAB for autocompletion: `cd KISD-Dark-Ecology/code/crawler`
+8.  In order to execute the servo_service_test script run: `python servo_service_test.py`
+9.  If you want to stop it type: Control C
+
+
 
 
 
