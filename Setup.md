@@ -47,15 +47,15 @@ For a bit of context:
 
 Hit enter after each command!
 
-1. Rename your I phone to Raspi-Hotspot, this is so the raspberry can connect to it. Then change your Iphones Hotspot password to Barcelona84
-2. Open the app Powershell on windows, alternativly open CMD on windows
-3. Your computer must also be connected to the same hotspot as the raspberry
-4. In either powershell or CMD type in the command: `ssh max@crawler.local`
-5. You are then prompted to enter the password, type in `crawler`, you might not see that you are typing in text, hit enter regardless when you are finished typing in.
-6. YOU ARE NOW ON THE RASPBERRY PI!! :)
-7.  Navigate to the correct folder, you can hit TAB for autocompletion: `cd KISD-Dark-Ecology/code/crawler`
-8.  In order to execute the servo_service_test script run: `python servo_service_test.py`
-9.  If you want to stop it type: Control C
+1. Rename your I phone to `Raspi-Hotspot`, this is so the raspberry can connect to it. Then change your Iphones Hotspot password to Barcelona84 <br> https://support.apple.com/en-bn/guide/iphone/iphf256af64f/ios
+3. Open the app Powershell on windows, alternativly open CMD on windows
+4. Your computer must also be connected to the same hotspot as the raspberry
+5. In either powershell or CMD type in the command: `ssh max@crawler.local`
+6. You are then prompted to enter the password, type in `crawler`, you might not see that you are typing in text, hit enter regardless when you are finished typing in.
+7. YOU ARE NOW ON THE RASPBERRY PI!! :)
+8.  Navigate to the correct folder, you can hit TAB for autocompletion: `cd KISD-Dark-Ecology/code/crawler`
+9.  In order to execute the servo_service_test script run: `python servo_service_test.py`
+10.  If you want to stop it type: Control C
 
 
 
