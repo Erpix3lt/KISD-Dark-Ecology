@@ -53,18 +53,18 @@ class ServoService:
     def go_left(self, steps= 5):
         logging.debug("Moving left with additional_speed: %d and steps: %d", self.additional_speed, steps)
         for step in range(steps):
-            self.rotate_left_servo_once()
+            self.rotate_right_servo_once()
             # move every second step right servo
             if step % 2 == 0:
-                self.rotate_right_servo_once()
+                self.rotate_left_servo_once()
 
     def go_right(self, steps= 5):
         logging.debug("Moving right with additional_speed: %d and steps: %d", self.additional_speed, steps)
         for step in range(steps):
-            self.rotate_right_servo_once()
+            self.rotate_left_servo_once()
             # move every second step left servo
             if step % 2 == 0:
-                self.rotate_left_servo_once()
+                self.rotate_right_servo_once()
 
     ###############################
     # Basic Movement Control      #
