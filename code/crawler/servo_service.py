@@ -40,8 +40,8 @@ class ServoService:
     def go_forward(self, steps= 5):
         logging.debug("Moving forward with additional_speed: %d and steps: %d", self.additional_speed, steps)
         for _ in range(steps):
-            self.rotate_left_servo_once()
-            self.rotate_right_servo_once()
+            self.rotate_left_servo_once(duration=2.5)
+            self.rotate_right_servo_once(duration=2.5)
 
     def go_backward(self, steps= 5):
         logging.debug("Moving backward with additional_speed: %d and steps: %d", self.additional_speed, steps)
