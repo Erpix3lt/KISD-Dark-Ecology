@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 import logging
-import time
 
 class ServoService:
 
