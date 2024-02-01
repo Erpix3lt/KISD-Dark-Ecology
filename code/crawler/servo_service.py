@@ -69,11 +69,15 @@ class ServoService:
     # Basic Movement Control      #
     ###############################
                 
-    def stop(self, duration = 1):
+    def stop(self, duration = 1, right_servo_center_custom = None, left_servo_center_custom = None):
+        if right_servo_center_custom is None:
+            right_servo_center_custom = self.right_servo_center
+        if left_servo_center_custom is None:
+            left_servo_center_custom = self.left_servo_center
         # bring both pwm into a neutral position
         logging.debug("Stopping, bringing both pwm into a neutral position")
-        self.right_pwm.ChangeDutyCycle(self.right_servo_center)
-        self.left_pwm.ChangeDutyCycle(self.left_servo_center)
+        self.right_pwm.ChangeDutyCycle(right_servo_center_custom)
+        self.left_pwm.ChangeDutyCycle(left_servo_center_custom)
         time.sleep(duration)
 
     #TODO Modify values to fit 360 degree rotation
