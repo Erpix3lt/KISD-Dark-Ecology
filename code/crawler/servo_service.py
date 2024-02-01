@@ -101,7 +101,7 @@ class ServoService:
         logging.debug("Rotating right")
         self.rotate_right_servo(self.additional_speed, duration)
 
-    def rotate_right_servo_once(self, duration = 1.2):
+    def rotate_right_servo_once(self, duration = 1.46):
         self.rotate_right_servo(self.additional_speed, duration)
 
     def rotate_left_servo_once(self, duration = 1.43):
