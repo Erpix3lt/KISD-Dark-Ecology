@@ -4,4 +4,4 @@ servoService = ServoService()
 
 
 print("rotating for 3.5 seconds")
-servoService.rotate_left_servo_once()
+servoService.rotate_left_servo_once(5)
