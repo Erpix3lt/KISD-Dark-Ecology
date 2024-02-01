@@ -3,5 +3,5 @@ from servo_service import ServoService
 servoService = ServoService()
 
 
-print("rotating for 3.5 seconds")
-servoService.rotate_left_servo_once(5)
+servoService.rotate_left_servo_once()
+servoService.rotate_right_servo_once()

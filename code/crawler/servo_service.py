@@ -110,12 +110,18 @@ class ServoService:
         self.rotate_right_servo(-1* (self.additional_speed), duration)
 
     def rotate_right_servo(self, additional_speed, duration):
+        print("Starting")
         self.right_pwm.ChangeDutyCycle(self.right_servo_center + additional_speed)
         time.sleep(duration)
+        print("Stopping")
+        self.stop(0)
 
     def rotate_left_servo(self, additional_speed, duration):
+        print("Starting")
         self.left_pwm.ChangeDutyCycle(self.left_servo_center - additional_speed)
         time.sleep(duration)
+        print("Stopping")
+        self.stop(0)
 
 
     def close(self):
