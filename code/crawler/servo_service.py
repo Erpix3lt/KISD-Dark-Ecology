@@ -98,7 +98,7 @@ class ServoService:
         self.rotate_right_servo(self.additional_speed, duration)
 
     #TODO: Modify values to fit one rotation
-    def rotate_right_servo_once(self, duration = 10):
+    def rotate_right_servo_once(self, duration = 1.2):
         self.rotate_right_servo(self.additional_speed, duration)
 
     #TODO: Modify values to fit one rotation
