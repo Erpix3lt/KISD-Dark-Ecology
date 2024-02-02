@@ -11,8 +11,15 @@ class ServoService:
     # The right position is 12    #
     # The left position is 2      #
     ###############################
+    # Forward motion 
+    # Left_Servo 8.2
+    # Right_Servo 6.6
+    ###############################
+    # Backward motion
+    # Left_Servo TOBEDONE
+    # Right_Servo TOBEDONE
 
-    def __init__(self, right_servo_pin = 26, left_servo_pin = 13, right_center_position = 7, left_center_position = 6.8):
+    def __init__(self, right_servo_pin = 26, left_servo_pin = 13, right_center_position = 7, left_center_position = 6.9):
         GPIO.cleanup()
         # Set the GPIO mode to BCM
         GPIO.setmode(GPIO.BCM)
@@ -31,18 +38,16 @@ class ServoService:
         self.left_pwm.start(self.left_center_position)
         logging.debug("Initialised ServoService with the following values: right_servo_pin: %d, left_servo_pin: %d", self.right_servo_pin, self.left_servo_pin)
 
-    def go_left(self, additional_speed = 3, curve_steepness = 0.5,  duration = 1):
+    def go_left(self, duration = 1):
         # during the duration of 1 second move in the left direction
-        logging.debug("Moving left with additional_speed: %d, curve_steepness: %d and duration: %d", additional_speed, curve_steepness, duration)
-        self.right_pwm.ChangeDutyCycle(7 + additional_speed)
-        self.left_pwm.ChangeDutyCycle(7 + curve_steepness)
+        self.right_pwm.ChangeDutyCycle(self.right_center_position - 0.6)
+        self.left_pwm.ChangeDutyCycle(self.left_center_position + 1.3)
         time.sleep(duration)        
 
-    def go_right(self, additional_speed = 3, curve_steepness = 0.5, duration = 1):
+    def go_right(self, duration = 1):
         # during the duration of 1 second move in the right direction
-        logging.debug("Moving right with additional_speed: %d, curve_steepness: %d and duration: %d", additional_speed, curve_steepness, duration)
-        self.right_pwm.ChangeDutyCycle(7.5 + curve_steepness)
-        self.left_pwm.ChangeDutyCycle(7.5 + additional_speed)
+        self.right_pwm.ChangeDutyCycle(self.right_center_position - 0.3)
+        self.left_pwm.ChangeDutyCycle(self.left_center_position + 1.3)
         time.sleep(duration)
 
     def stop(self, duration = 1):
@@ -52,11 +57,10 @@ class ServoService:
         self.left_pwm.ChangeDutyCycle(self.left_center_position)
         time.sleep(duration)
 
-    def go_forward(self, additional_speed = 3, duration = 1):
+    def go_forward(self, duration = 1):
         # bring both pwm into a neutral forward position
-        logging.debug("Moving forward with additional_speed: %d and duration: %d", additional_speed, duration)
-        self.right_pwm.ChangeDutyCycle(self.right_center_position + additional_speed)
-        self.left_pwm.ChangeDutyCycle(self.left_center_position - additional_speed)
+        self.right_pwm.ChangeDutyCycle(self.right_center_position - 0.4)
+        self.left_pwm.ChangeDutyCycle(self.left_center_position + 1.3)
         time.sleep(duration)
 
     def go_backward(self, additional_speed = 1.5, duration = 1):
