@@ -114,7 +114,7 @@ class ServoService:
 
     def rotate_right_servo_backwards_once(self, duration = 0.2):
         print("going backwards, with duration: ", duration)
-        self.rotate_right_servo(-2* (self.additional_speed), duration)
+        self.rotate_right_servo(-1* (0.5), duration)
 
     def rotate_right_servo(self, additional_speed, duration):
         self.right_pwm.ChangeDutyCycle(self.right_servo_center + additional_speed)
