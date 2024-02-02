@@ -107,10 +107,10 @@ class ServoService:
     def rotate_left_servo_once(self, duration = 1.43):
         self.rotate_left_servo(self.additional_speed, duration)
 
-    def rotate_left_servo_backwards_once(self, duration = 0.5):
+    def rotate_left_servo_backwards_once(self, duration = 0.2):
         self.rotate_left_servo(-1* (self.additional_speed), duration)
 
-    def rotate_right_servo_backwards_once(self, duration = 0.5):
+    def rotate_right_servo_backwards_once(self, duration = 0.2):
         self.rotate_right_servo(-1* (self.additional_speed), duration)
 
     def rotate_right_servo(self, additional_speed, duration):
