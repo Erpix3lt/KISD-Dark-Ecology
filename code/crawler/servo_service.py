@@ -57,7 +57,7 @@ class ServoService:
         self.left_pwm.ChangeDutyCycle(7 - additional_speed)
         time.sleep(duration)
 
-    def go_backward(self, additional_speed = 3, duration = 1):
+    def go_backward(self, additional_speed = 1.5, duration = 1):
         # bring both pwm into a neutral backward position
         logging.debug("Moving backward with additional_speed: %d and duration: %d", additional_speed, duration)
         self.right_pwm.ChangeDutyCycle(7 - additional_speed)
