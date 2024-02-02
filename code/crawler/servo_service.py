@@ -27,7 +27,7 @@ class ServoService:
         self.right_servo_center = 7
         self.left_servo_center = 6.9
         # Additional Speed Control
-        self.additional_speed = 3
+        self.additional_speed = 1.5
         # bring both pwm into a neutral position
         self.right_pwm.start(self.right_servo_center)
         self.left_pwm.start(self.left_servo_center)
@@ -46,8 +46,9 @@ class ServoService:
     def go_backward(self, steps= 5):
         logging.debug("Moving backward with additional_speed: %d and steps: %d", self.additional_speed, steps)
         for _ in range(steps):
-            self.rotate_right_servo_backwards_once(1)
-            self.rotate_left_servo_backwards_once(2)
+            self.rotate_right_servo_backwards_once(2)
+            time.sleep(1)
+            self.rotate_left_servo_backwards_once(3)
 
     def go_left(self, steps= 5):
         logging.debug("Moving left with additional_speed: %d and steps: %d", self.additional_speed, steps)
