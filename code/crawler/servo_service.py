@@ -12,7 +12,7 @@ class ServoService:
     # The left position is 2      #
     ###############################
 
-    def __init__(self, right_servo_pin = 26, left_servo_pin = 13, right_center_position = 7, left_center_position = 6.9):
+    def __init__(self, right_servo_pin = 26, left_servo_pin = 13, right_center_position = 7, left_center_position = 6.8):
         GPIO.cleanup()
         # Set the GPIO mode to BCM
         GPIO.setmode(GPIO.BCM)
