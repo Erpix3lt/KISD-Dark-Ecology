@@ -4,7 +4,7 @@ servoService = ServoService()
 
 
 print("going forward")
-servoService.stop(duration=50)
+servoService.go_right(duration=50)
         # print("going backward")
         # servoService.go_backward(duration=5)
         # print("going left")

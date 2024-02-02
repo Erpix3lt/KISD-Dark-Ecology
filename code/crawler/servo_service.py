@@ -46,8 +46,8 @@ class ServoService:
 
     def go_right(self, duration = 1):
         # during the duration of 1 second move in the right direction
-        self.right_pwm.ChangeDutyCycle(self.right_center_position - 0.3)
-        self.left_pwm.ChangeDutyCycle(self.left_center_position + 1.3)
+        self.right_pwm.ChangeDutyCycle(self.right_center_position - 0.2)
+        self.left_pwm.ChangeDutyCycle(self.left_center_position + 1.6)
         time.sleep(duration)
 
     def stop(self, duration = 1):
@@ -60,8 +60,8 @@ class ServoService:
     def go_forward(self, duration = 1):
         # bring both pwm into a neutral forward position
         print("Moving forward, at 6.6 and 8.2")
-        self.right_pwm.ChangeDutyCycle(6.6)
-        self.left_pwm.ChangeDutyCycle(8.2)
+        self.right_pwm.ChangeDutyCycle(self.right_center_position - 0.4)
+        self.left_pwm.ChangeDutyCycle(self.left_center_position + 1.3)
         time.sleep(duration)
 
     def go_backward(self, additional_speed = 1.5, duration = 1):
