@@ -59,6 +59,7 @@ class ServoService:
 
     def go_forward(self, duration = 1):
         # bring both pwm into a neutral forward position
+        print("Moving forward, at 6.6 and 8.2")
         self.right_pwm.ChangeDutyCycle(6.6)
         self.left_pwm.ChangeDutyCycle(8.2)
         time.sleep(duration)
