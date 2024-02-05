@@ -1,5 +1,6 @@
 from picamera2 import Picamera2
 import logging
+import numpy as np
 
 class VisionService:
     def __init__(self):
@@ -14,7 +15,12 @@ class VisionService:
         self.picam2.close()
         logging.debug("Camera stopped")
 
-    def capture_array(self):
+    def capture_array(self, flip_image = True):
         logging.debug("Capturing image")
-        return self.picam2.capture_array()
+        original_image = self.picam2.capture_array()
+        if flip_image:
+            return np.flipud(original_image)
+        else:
+            return original_image
+
 

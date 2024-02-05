@@ -16,7 +16,6 @@ class BrightnessAnalyser:
 
     def process_image(self, image, analyse_lower_half=False, blur_kernel_size=(5, 5), blur_sigma=0):
         height, width = image.shape[:2]
-        image = cv2.flip(image, 0)
         if analyse_lower_half:
             image = cv2.cvtColor(image[height // 2 :, :], cv2.COLOR_BGR2GRAY)
         else:
