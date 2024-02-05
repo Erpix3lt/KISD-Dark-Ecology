@@ -45,10 +45,10 @@ class Crawler():
                 logging.info("Bright spot is above threshold.")
                 self.servo_service.stop(duration=50)
                 self.servo_service.rotate(duration=50)
-            if self.distance_analyser.is_Colliding():
-                logging.info("Collision detected. Stopping.")
-                self.servo_service.stop(duration=50)
-                self.servo_service.rotate(duration=50)
+            # if self.distance_analyser.is_Colliding():
+            #     logging.info("Collision detected. Stopping.")
+            #     self.servo_service.stop(duration=50)
+            #     self.servo_service.rotate(duration=50)
             time.sleep(2)
 
 
