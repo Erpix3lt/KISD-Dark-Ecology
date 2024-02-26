@@ -65,4 +65,3 @@ Problems arising:
 
 ### 30.01.2024
 - Object avoidance <br> https://littlebirdelectronics.com.au/guides/163/obstacle-avoidance-robot-with-raspberry-pi-4
-- 
