@@ -1,0 +1,43 @@
+/* Simple CSS stylesheet with Georgia font and customized text and headline colors */
+body {
+  font-family: 'Georgia', serif;
+  color: #555;
+  padding: 5px;
+  font-size: 12px; /* Adjust the default font size here */
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  font-size: 12px; /* Adjust the font size for links here */
+}
+
+h1 {
+  color: #333;
+  font-size: 24px; /* Adjust the font size for h1 here */
+}
+
+h2 {
+  color: #333;
+  font-size: 22px; /* Adjust the font size for h2 here */
+}
+
+h3 {
+  color: #333;
+  font-size: 20px; /* Adjust the font size for h3 here */
+}
+
+h4 {
+  color: #333;
+  font-size: 18px; /* Adjust the font size for h4 here */
+}
+
+h5 {
+  color: #333;
+  font-size: 16px; /* Adjust the font size for h5 here */
+}
+
+h6 {
+  color: #333;
+  font-size: 14px; /* Adjust the font size for h6 here */
+}
