@@ -17,11 +17,9 @@ Alongside the pure mechanical realisation of the project, we also worked on some
 Talking about the feature, we still have to think about an exhibition concept. The following questions need answering: How do we maintain the walker? Where does the walker walk? How do we optimise the walker?
 
 ### Results
-My work on this project resulted in the following:
-
+My work on this project resulted in the following: <br>
 A collection of photographs, working together with Felix Willen, we created a small website showcasing the images: https://flora-erpix3lt.vercel.app/.
-
-The conceptualisation of our final project idea, as well as its technical and mechanical realisation, has resulted in a collection of code, the walker, imagery, setup tutorials, and more that can be found here: https://github.com/Erpix3lt/KISD-Dark-Ecology.
+<br>The conceptualisation of our final project idea, as well as its technical and mechanical realisation, has resulted in a collection of code, the walker, imagery, setup tutorials, and more that can be found here: https://github.com/Erpix3lt/KISD-Dark-Ecology.
 <br><br>
 Tuesday, 05.03.2024 <br>
 *Course conducted by Prof. Dr. Lasse Scherrfig*
