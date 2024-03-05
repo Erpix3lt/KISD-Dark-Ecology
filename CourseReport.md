@@ -15,7 +15,6 @@ In order to bring our idea to life, we used the mechanics of a Theo Janssen mech
 For our final prototype we printed each of the very detailed parts needed for the walking mechanism using a 3D printer. Besides that, we further refined the gears as well as the brackets holding our servo motors. The baseplate, as well as the plate above holding the plant, were made out of perforated metal plates. This gave us stability and durability, though it resulted in the walker being quite heavy.
 Alongside the pure mechanical realisation of the project, we also worked on some code allowing for the autonomous navigation of the walker. For this, we used a Raspberry Pi paired with a camera. The code mainly relied on OpenCV for image analysis. We compared the left and right side of the image, navigating towards the side being brighter. Using a camera allowed us to implement further features, such as comparing different light averages. It will also allow us to implement more refined features in the future.
 Talking about the feature, we still have to think about an exhibition concept. The following questions need answering: How do we maintain the walker? Where does the walker walk? How do we optimise the walker?
-Having mentioned those questions, I will come to an end now and think about them.
 
 ### Results
 My work on this project resulted in the following:
@@ -23,9 +22,7 @@ My work on this project resulted in the following:
 A collection of photographs, working together with Felix Willen, we created a small website showcasing the images: https://flora-erpix3lt.vercel.app/.
 
 The conceptualisation of our final project idea, as well as its technical and mechanical realisation, has resulted in a collection of code, the walker, imagery, setup tutorials, and more that can be found here: https://github.com/Erpix3lt/KISD-Dark-Ecology.
-
----
-
+<br><br>
 Tuesday, 05.03.2024 <br>
 *Course conducted by Prof. Dr. Lasse Scherrfig*
 
