@@ -3,7 +3,7 @@ Course Report - *Maximilian Schmalenbach* <br>
 KISD, Th-Köln - Wintersemester 2023/24
 
 ### Objectives
-The long-term project Dark Ecology, led by Prof. Dr. Lasse Scherrfig with the help of Laura Wagner, aimed to establish an understanding of the coherence between the worlds of artificial intelligence and botanical gardens. The aim was to introduce us students to the theoretical background of these worlds, while giving us the methods and knowledge to work on the production for an upcoming exhibition in the summer of 2024.
+The long-term project Dark Ecology, led by Prof. Dr. Lasse Scherffig with the help of Laura Wagner, aimed to establish an understanding of the coherence between the worlds of artificial intelligence and botanical gardens. The aim was to introduce us students to the theoretical background of these worlds, while giving us the methods and knowledge to work on the production for an upcoming exhibition in the summer of 2024.
 There was no clear product or artwork to be expected from this course.
 However, we did visit an exhibition at the Max Ernst Museum. This would later have a strong influence on the work of my project. Besides that we were given the task of visiting the Flora Gardens and take in the artificial nature.
 
@@ -22,5 +22,5 @@ A collection of photographs, working together with Felix Willen, we created a sm
 <br>The conceptualisation of our final project idea, as well as its technical and mechanical realisation, has resulted in a collection of code, the walker, imagery, setup tutorials, and more that can be found here: https://github.com/Erpix3lt/KISD-Dark-Ecology.
 <br><br>
 Tuesday, 05.03.2024 <br>
-*Course conducted by Prof. Dr. Lasse Scherrfig*
+*Course conducted by Prof. Dr. Lasse Scherffig*
 
