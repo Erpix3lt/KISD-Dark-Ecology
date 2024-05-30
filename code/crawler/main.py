@@ -21,12 +21,12 @@ class Crawler():
         self.vision_service.close()
         self.servo_service.close()
 
-    def run(self):
+    def run(self, where_to = 'cat'):
         is_healthy: Dict[str, Any] = self.client.is_healthy()  
         if is_healthy:  
             while True:
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
-                result = self.client.lead_me_to(image, 'vase')
+                result = self.client.lead_me_to(image, where_to)
                 if result == 'RIGHT':
                     self.servo_service.go_right()
                 if result == 'LEFT':
