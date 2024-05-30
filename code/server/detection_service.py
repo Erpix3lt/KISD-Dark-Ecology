@@ -109,6 +109,6 @@ class Detection_Service:
 
       # Determine if the first detected instance is on the left or right half of the image
       if first_object_x < image_width / 2:
-          return 'LEFT'
-      else:
           return 'RIGHT'
+      else:
+          return 'LEFT'
