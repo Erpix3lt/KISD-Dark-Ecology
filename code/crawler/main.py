@@ -3,7 +3,7 @@ from servo_service import ServoService
 import logging
 import time
 from dotenv import load_dotenv
-from distance_service import DistanceAnalyser
+from distance_service import DistanceService
 from client import Client
 from PIL import Image
 
@@ -13,7 +13,7 @@ class Crawler():
         self.vision_service = VisionService()
         self.vision_service.start()
         self.servo_service = ServoService()
-        self.distance_analyser = DistanceAnalyser()
+        self.distance_analyser = DistanceService()
         self.client = Client()
         
     def stop(self):
