@@ -2,6 +2,11 @@ import os
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from detection_service import Detection_Service
+from PIL import Image
+from io import BytesIO
+import base64
+import tempfile
+import webbrowser
 
 class Server:
     def __init__(self):
@@ -18,12 +23,18 @@ class Server:
         @self.app.route('/analyse_image', methods=['POST'])
         def analyse_image():
             data = request.get_json()
-            image = data.get('image')
+            image_data = data.get('image')
             try:
+                image = Image.open(BytesIO(base64.b64decode(image_data)))
                 result, analysed_image = self.detection_service.analyse_image(image)
-                return jsonify({'result': result}), 200
+                
+                with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as temp_file:
+                    analysed_image.save(temp_file.name, format="JPEG")
+                webbrowser.open('file://' + temp_file.name)
+                
+                return jsonify({'result': str(result)}), 200
             except Exception as e:
-                return jsonify({'error': f'There was an error while analysing the image: {str(e)}'}), 400
+                return jsonify({'error': f'There was an error while analysing the image: {str(e)}'}), 500
         
         @self.app.route('/lead_me_to', methods=['POST'])
         def lead_me_to():
