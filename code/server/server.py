@@ -1,14 +1,28 @@
+import os
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 
-app = Flask(__name__)
+class MyFlaskApp:
+    def __init__(self):
+        load_dotenv()
+        self.app = Flask(__name__)
+        self.port = int(os.getenv('PORT', 5500))
+        self.host = os.getenv('HOST', '0.0.0.0')
+        
+        @self.app.route('/is_healthy', methods=['GET'])
+        def is_healthy():
+            return jsonify({'is_running'}, 200)
+        
+        @self.app.route('/lead_me_to', methods=['POST'])
+        def lead_me_to():
+            data = request.get_json()
+            image = data.get('image')
+            to_where = data.get('to_where')
+            
 
-@app.route('/add', methods=['POST'])
-def add():
-    data = request.get_json()  # Get JSON data from request
-    a = data.get('a')  # Extract 'a' from JSON
-    b = data.get('b')  # Extract 'b' from JSON
-    result = a + b  # Calculate the sum
-    return jsonify({'result': result})  # Return result as JSON
+    def run(self):
+        self.app.run(host=self.host, port=self.port)  # Run server on all available IPs
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5500)  # Run server on all available IPs
+    my_app = MyFlaskApp()
+    my_app.run()

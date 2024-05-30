@@ -12,3 +12,5 @@ Now we can use python and pip as usual.
 
 Install all dependencies: `pip install -r requirements.txt`
 
+### ENV
+Copy contents of the `.env.template`file and populate a `.env` file whit the copied content.
