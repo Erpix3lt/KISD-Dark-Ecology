@@ -7,6 +7,7 @@ from io import BytesIO
 import base64
 import tempfile
 import webbrowser
+from logger import Logger
 
 class Server:
     def __init__(self):
@@ -14,7 +15,9 @@ class Server:
         self.app = Flask(__name__)
         self.port = int(os.getenv('PORT', 5500))
         self.host = os.getenv('HOST', '0.0.0.0')
+        self.log_level = os.getenv('LOG_LEVEL', 'INFO')
         self.detection_service = Detection_Service()
+        self.logger = Logger()
         
         @self.app.route('/is_healthy', methods=['GET'])
         def is_healthy():
@@ -27,11 +30,8 @@ class Server:
             try:
                 image = Image.open(BytesIO(base64.b64decode(image_data)))
                 result, analysed_image = self.detection_service.analyse_image(image)
-                
-                with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as temp_file:
-                    analysed_image.save(temp_file.name, format="JPEG")
-                webbrowser.open('file://' + temp_file.name)
-                
+                if self.log_level == 'DEBUG':
+                    self.logger.log_analysed_image(analysed_image)        
                 return jsonify({'result': str(result)}), 200
             except Exception as e:
                 return jsonify({'error': f'There was an error while analysing the image: {str(e)}'}), 500
@@ -39,12 +39,21 @@ class Server:
         @self.app.route('/lead_me_to', methods=['POST'])
         def lead_me_to():
             data = request.get_json()
-            image = data.get('image')
-            to_where = data.get('to_where')
-            # Implement your logic here
-            return jsonify({'status': 'success'}), 200
-            
-
+            image_data = data.get('image')
+            where_to = data.get('where_to')
+            try:
+                image = Image.open(BytesIO(base64.b64decode(image_data)))
+                result, analysed_image = self.detection_service.analyse_image(image)
+                if self.log_level == 'DEBUG':
+                    self.logger.log_analysed_image(analysed_image)  
+                direction = self.detection_service.navigate(result, where_to)
+                if direction is 'unknown':
+                    return jsonify({'error': f'There was an error while asserting the direction. 
+                                    The desired object might not have found.'}), 500
+                return jsonify({'result': direction}), 200
+            except Exception as e:
+                return jsonify({'error': f'There was an error while analysing the image: {str(e)}'}), 500
+        
     def run(self):
         self.app.run(host=self.host, port=self.port)  # Run server on all available IPs
 

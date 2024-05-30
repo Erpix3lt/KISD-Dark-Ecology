@@ -14,3 +14,5 @@ Install all dependencies: `pip install -r requirements.txt`
 
 ### ENV
 Copy contents of the `.env.template`file and populate a `.env` file whit the copied content.
+
+- Add LOG_LEVEL DEBUG if you want to display analysed images.
