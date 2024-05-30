@@ -21,7 +21,7 @@ class Server:
         
         @self.app.route('/is_healthy', methods=['GET'])
         def is_healthy():
-            return jsonify({'is_healthy': True}), 200
+            return jsonify({'result': True}), 200
         
         @self.app.route('/analyse_image', methods=['POST'])
         def analyse_image():

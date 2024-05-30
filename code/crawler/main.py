@@ -23,18 +23,17 @@ class Crawler():
 
     def run(self, where_to = 'cat'):
         is_healthy: Dict[str, Any] = self.client.is_healthy()  
-        if is_healthy:  
+        if is_healthy['result']:  
             while True:
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
-                result = self.client.lead_me_to(image, where_to)
-                print("RESULT:", result)
-                if result == 'RIGHT':
+                lead_to = self.client.lead_me_to(image, where_to)
+                if lead_to['result'] == 'RIGHT':
                     print("RIGHT")
                     self.servo_service.go_right()
-                if result == 'LEFT':
+                if lead_to['result'] == 'LEFT':
                     print("LEFT")
                     self.servo_service.go_left()
-                if result == 'UNKNOWN':
+                if lead_to['result'] == 'UNKNOWN':
                     print("NOTHING DETECTED")
                 # if self.distance_analyser.is_Colliding():
                 #     logging.info("Collision detected. Stopping.")
