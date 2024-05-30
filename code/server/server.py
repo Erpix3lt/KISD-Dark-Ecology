@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
-class MyFlaskApp:
+class Server:
     def __init__(self):
         load_dotenv()
         self.app = Flask(__name__)
@@ -11,18 +11,20 @@ class MyFlaskApp:
         
         @self.app.route('/is_healthy', methods=['GET'])
         def is_healthy():
-            return jsonify({'is_running'}, 200)
+            return jsonify({'is_running': True}), 200
         
         @self.app.route('/lead_me_to', methods=['POST'])
         def lead_me_to():
             data = request.get_json()
             image = data.get('image')
             to_where = data.get('to_where')
+            # Implement your logic here
+            return jsonify({'status': 'success'}), 200
             
 
     def run(self):
         self.app.run(host=self.host, port=self.port)  # Run server on all available IPs
 
 if __name__ == '__main__':
-    my_app = MyFlaskApp()
-    my_app.run()
+    server = Server()
+    server.run()
