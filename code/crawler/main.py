@@ -26,19 +26,22 @@ class Crawler():
         if is_healthy['result']:  
             while True:
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
-                lead_to = self.client.lead_me_to(image, where_to)
-                if lead_to['result'] == 'RIGHT':
-                    print("RIGHT")
-                    self.servo_service.go_right()
-                if lead_to['result'] == 'LEFT':
-                    print("LEFT")
-                    self.servo_service.go_left()
-                if lead_to['result'] == 'UNKNOWN':
-                    print("NOTHING DETECTED")
-                # if self.distance_analyser.is_Colliding():
-                #     logging.info("Collision detected. Stopping.")
-                #     self.servo_service.stop(duration=50)
-                #     self.servo_service.rotate(duration=50)
+                try: 
+                    lead_to = self.client.lead_me_to(image, where_to)
+                    if lead_to['result'] == 'RIGHT':
+                        print("RIGHT")
+                        self.servo_service.go_right()
+                    if lead_to['result'] == 'LEFT':
+                        print("LEFT")
+                        self.servo_service.go_left()
+                    if lead_to['result'] == 'UNKNOWN':
+                        print("NOTHING DETECTED")
+                    # if self.distance_analyser.is_Colliding():
+                    #     logging.info("Collision detected. Stopping.")
+                    #     self.servo_service.stop(duration=50)
+                    #     self.servo_service.rotate(duration=50)
+                except:
+                    print("did not get back any response")
                 time.sleep(5)
             
 
