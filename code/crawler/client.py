@@ -6,7 +6,7 @@ class Client:
     def __init__(self):
         load_dotenv()  
         self.server_ip = os.getenv('SERVER_IP')  
-        self.server_port = os.getenv('SERVER_PORT')
+        self.server_port = int(os.getenv('SERVER_PORT'))
         self.url = f'http://{self.server_ip}:{self.server_port}'
         
     def is_healthy(self):
