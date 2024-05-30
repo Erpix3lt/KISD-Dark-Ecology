@@ -16,10 +16,30 @@ class Crawler():
         self.servo_service = ServoService()
         #self.distance_analyser = DistanceService()
         self.client = Client()
+        self.previous_lead_to = None
         
     def stop(self):
         self.vision_service.close()
         self.servo_service.close()
+        
+    def handle_unknown(self):
+        if self.previous_lead_to is not None:
+            if self.previous_lead_to == 'RIGHT':
+                print("RIGHT")
+                self.servo_service.go_right()
+            elif self.previous_lead_to == 'LEFT':
+                print("LEFT")
+                self.servo_service.go_left()
+            elif self.previous_lead_to == 'UNKNOWN':
+                print("ROTATING")
+                self.servo_service.rotate(5)
+        else:
+            print("Previous lead to not yet define")
+            
+    def handle_is_colliding(self):
+        print("Collision detected. Stopping.")
+        self.servo_service.stop(duration=50)
+        self.servo_service.rotate(duration=50)
 
     def run(self, where_to = 'cat'):
         is_healthy: Dict[str, Any] = self.client.is_healthy()  
@@ -36,14 +56,13 @@ class Crawler():
                         self.servo_service.go_left()
                     if lead_to['result'] == 'UNKNOWN':
                         print("NOTHING DETECTED")
-                    # if self.distance_analyser.is_Colliding():
-                    #     logging.info("Collision detected. Stopping.")
-                    #     self.servo_service.stop(duration=50)
-                    #     self.servo_service.rotate(duration=50)
+                        self.handle_unknown()
+                    if self.distance_analyser.is_Colliding():
+                        self.handle_is_colliding()
                 except:
-                    print("did not get back any response")
+                    print("NO RESPONSE GIVEN")
+                self.previous_lead_to = lead_to
                 time.sleep(5)
-            
 
 if __name__ == "__main__":
     crawler = Crawler()
