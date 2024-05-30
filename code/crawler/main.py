@@ -28,18 +28,18 @@ class Crawler():
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
                 result = self.client.lead_me_to(image, where_to)
                 if result == 'RIGHT':
-                    logging.warn("RIGHT")
+                    print("RIGHT")
                     self.servo_service.go_right()
                 if result == 'LEFT':
-                    logging.warn("LEFT")
+                    print("LEFT")
                     self.servo_service.go_left()
                 if result == 'UNKNOWN':
-                    logging.info("NOTHING DETECTED")
+                    print("NOTHING DETECTED")
                 # if self.distance_analyser.is_Colliding():
                 #     logging.info("Collision detected. Stopping.")
                 #     self.servo_service.stop(duration=50)
                 #     self.servo_service.rotate(duration=50)
-                time.sleep(10)
+                time.sleep(5)
             
 
 if __name__ == "__main__":
