@@ -5,36 +5,38 @@ from vision_service import VisionService
 from PIL import Image
 from io import BytesIO
 import base64
+from typing import Dict, Any
 
 class Client:
     def __init__(self):
-      load_dotenv()  
-      self.server_ip = os.getenv('SERVER_IP')  
-      self.server_port = int(os.getenv('SERVER_PORT'))
-      self.url = f'http://{self.server_ip}:{self.server_port}'
-      self.vision_service = VisionService()
+        load_dotenv()  
+        self.server_ip: str = os.getenv('SERVER_IP')  
+        self.server_port: int = int(os.getenv('SERVER_PORT'))
+        self.url: str = f'http://{self.server_ip}:{self.server_port}'
+        self.vision_service: VisionService = VisionService()
         
-    def is_healthy(self):
-      response = requests.get(self.url + '/is_healthy')
-      return response.json()
+    def is_healthy(self) -> Dict[str, Any]:
+        response = requests.get(self.url + '/is_healthy')
+        return response.json()
       
-    def analyse_image(self, image: Image):
-      if image.mode == 'RGBA':
-        image = image.convert('RGB')
-      buffered = BytesIO()
-      image.save(buffered, format="JPEG")
-      payload = {'image': base64.b64encode(buffered.getvalue()).decode('utf-8')}
-      response = requests.post(self.url + '/analyse_image', json=payload)
-      return response.json()
+    def analyse_image(self, image: Image.Image) -> Dict[str, Any]:
+        if image.mode == 'RGBA':
+            image = image.convert('RGB')
+        buffered: BytesIO = BytesIO()
+        image.save(buffered, format="JPEG")
+        payload: Dict[str, str] = {'image': base64.b64encode(buffered.getvalue()).decode('utf-8')}
+        response = requests.post(self.url + '/analyse_image', json=payload)
+        return response.json()
 
 if __name__ == '__main__':
     client = Client()
     client.vision_service.start()
 
-    result = client.is_healthy()  
+    result: Dict[str, Any] = client.is_healthy()  
     print(result)
 
-    result = client.analyse_image(Image.fromarray(client.vision_service.capture_array()))  
+    image: Image.Image = Image.fromarray(client.vision_service.capture_array())
+    result = client.analyse_image(image)  
     print(result)
     
     client.vision_service.close()
