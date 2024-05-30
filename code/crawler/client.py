@@ -39,19 +39,19 @@ class Client:
         response = requests.post(self.url + '/lead_me_to', json=payload)
         return response.json()
 
-# if __name__ == '__main__':
-#     client = Client()
-#     client.vision_service.start()
+if __name__ == '__main__':
+    client = Client()
+    client.vision_service.start()
 
-#     result: Dict[str, Any] = client.is_healthy()  
-#     print(result)
+    result: Dict[str, Any] = client.is_healthy()  
+    print(result)
 
-#     image: Image.Image = Image.fromarray(client.vision_service.capture_array())
-#     result = client.analyse_image(image)  
-#     print(result)
+    image: Image.Image = Image.fromarray(client.vision_service.capture_array())
+    result = client.analyse_image(image)  
+    print(result)
     
-#     image: Image.Image = Image.fromarray(client.vision_service.capture_array())
-#     result = client.lead_me_to(image, 'vase')  
-#     print(result)
+    image: Image.Image = Image.fromarray(client.vision_service.capture_array())
+    result = client.lead_me_to(image, 'vase')  
+    print(result)
     
-#     client.vision_service.close()
+    client.vision_service.close()
