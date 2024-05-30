@@ -13,7 +13,7 @@ class Crawler():
         self.vision_service = VisionService()
         self.vision_service.start()
         self.servo_service = ServoService()
-        self.distance_analyser = DistanceService()
+        #self.distance_analyser = DistanceService()
         self.client = Client()
         
     def stop(self):
