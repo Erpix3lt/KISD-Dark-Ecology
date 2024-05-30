@@ -27,6 +27,7 @@ class Crawler():
             while True:
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
                 result = self.client.lead_me_to(image, where_to)
+                print("RESULT:", result)
                 if result == 'RIGHT':
                     print("RIGHT")
                     self.servo_service.go_right()
