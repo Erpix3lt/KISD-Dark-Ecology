@@ -50,4 +50,8 @@ if __name__ == '__main__':
     result = client.analyse_image(image)  
     print(result)
     
+    image: Image.Image = Image.fromarray(client.vision_service.capture_array())
+    result = client.lead_me_to(image, 'boat')  
+    print(result)
+    
     client.vision_service.close()
