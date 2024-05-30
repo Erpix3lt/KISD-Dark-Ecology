@@ -19,7 +19,7 @@ class VisionService:
         logging.debug("Capturing image")
         original_image = self.picam2.capture_array()
         if flip_image:
-            return np.flipud(original_image)
+            return np.fliplr(np.flipud(original_image))
         else:
             return original_image
 
