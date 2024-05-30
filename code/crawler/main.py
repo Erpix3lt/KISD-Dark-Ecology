@@ -32,8 +32,6 @@ class Crawler():
             elif self.previous_lead_to == 'UNKNOWN':
                 print("ROTATING")
                 self.servo_service.rotate(5)
-        else:
-            print("Previous lead to not yet define")
             
     def handle_is_colliding(self):
         print("Collision detected. Stopping.")
