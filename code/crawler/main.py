@@ -56,10 +56,10 @@ class Crawler():
                     if lead_to['result'] == 'UNKNOWN':
                         print("NOTHING DETECTED")
                         self.handle_unknown()
-                    if self.distance_analyser.is_Colliding():
-                        self.handle_is_colliding()
-                except:
-                    print("NO RESPONSE GIVEN")
+                    # if self.distance_analyser.is_Colliding():
+                    #     self.handle_is_colliding()
+                except Exception as e:
+                    print("NO RESPONSE GIVEN", str(e))
                 self.previous_lead_to = lead_to
                 time.sleep(5)
 

@@ -5,8 +5,6 @@ from detection_service import Detection_Service
 from PIL import Image
 from io import BytesIO
 import base64
-import tempfile
-import webbrowser
 from logger import Logger
 
 class Server:
@@ -45,7 +43,8 @@ class Server:
                 image = Image.open(BytesIO(base64.b64decode(image_data)))
                 result, analysed_image = self.detection_service.analyse_image(image)
                 if self.log_level == 'DEBUG':
-                    self.logger.log_analysed_image(analysed_image)  
+                    #self.logger.log_analysed_image(analysed_image) 
+                    self.logger.log_analysed_image(analysed_image) 
                 direction = self.detection_service.navigate(image, result, where_to)
                 if direction == 'unknown':
                     return jsonify({'error': 'There was an error while asserting the direction. The desired object might not have found.'}), 500
