@@ -99,7 +99,7 @@ class Detection_Service:
       desired_objects = data_frame[data_frame['name'] == where_to]
 
       if len(desired_objects) == 0:
-          return 'unknown'  # Desired object not found
+          return 'UNKNOWN'  # Desired object not found
 
       image_width = image.width  # Width of the image
       object_x_center = (desired_objects['xmin'] + desired_objects['xmax']) / 2  # X center of the object
@@ -109,6 +109,6 @@ class Detection_Service:
 
       # Determine if the first detected instance is on the left or right half of the image
       if first_object_x < image_width / 2:
-          return 'left'
+          return 'LEFT'
       else:
-          return 'right'
+          return 'RIGHT'

@@ -1,19 +1,20 @@
 from vision_service import VisionService
 from servo_service import ServoService
-from logger import Logger
 import logging
 import time
 from dotenv import load_dotenv
 from distance_service import DistanceAnalyser
+from client import Client
+from PIL import Image
 
 class Crawler():
     def __init__(self):
         load_dotenv()
-        self.logger = Logger()
         self.vision_service = VisionService()
         self.vision_service.start()
         self.servo_service = ServoService()
         self.distance_analyser = DistanceAnalyser()
+        self.client = Client()
         
     def stop(self):
         self.vision_service.close()
@@ -21,15 +22,14 @@ class Crawler():
 
     def run(self):
         while True:
-            image = self.vision_service.capture_array()
-            if logging.DEBUG:
-                self.logger.save_images_to_web_server(image)
-            # if is_left:
-            #     logging.info("Bright spot is on the left.")
-            #     self.servo_service.go_left()
-            # else:
-            #     logging.info("Bright spot is on the right.")
-            #     self.servo_service.go_right()
+            image: Image.Image = Image.fromarray(self.vision_service.capture_array())
+            result = self.client.lead_me_to(image, 'vase')
+            if result == 'RIGHT':
+                self.servo_service.go_right()
+            if result == 'LEFT':
+                self.servo_service.go_left()
+            if result == 'UNKNOWN':
+                logging.info("NOTHING DETECTED")
             if self.distance_analyser.is_Colliding():
                 logging.info("Collision detected. Stopping.")
                 self.servo_service.stop(duration=50)
