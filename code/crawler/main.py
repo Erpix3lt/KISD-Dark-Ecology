@@ -1,6 +1,5 @@
 from vision_service import VisionService
 from servo_service import ServoService
-import logging
 import time
 from dotenv import load_dotenv
 from distance_service import DistanceService

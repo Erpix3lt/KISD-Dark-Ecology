@@ -8,13 +8,14 @@ import base64
 from typing import Dict, Any
 
 class Client:
+    
     def __init__(self):
         load_dotenv()  
         self.server_ip: str = os.getenv('SERVER_IP')  
         self.server_port: int = int(os.getenv('SERVER_PORT'))
         self.url: str = f'http://{self.server_ip}:{self.server_port}'
         
-    def pil_to_base_64(self, image: Image.Image) -> base64:
+    def pil_to_base_64(self, image: Image.Image) -> str:
         if image.mode == 'RGBA':
             image = image.convert('RGB')
         buffered: BytesIO = BytesIO()
@@ -37,21 +38,3 @@ class Client:
         }
         response = requests.post(self.url + '/lead_me_to', json=payload)
         return response.json()
-
-if __name__ == '__main__':
-    client = Client()
-    vision_service = VisionService()
-    vision_service.start()
-
-    result: Dict[str, Any] = client.is_healthy()  
-    print(result)
-
-    image: Image.Image = Image.fromarray(vision_service.capture_array())
-    result = client.analyse_image(image)  
-    print(result)
-    
-    image: Image.Image = Image.fromarray(vision_service.capture_array())
-    result = client.lead_me_to(image, 'vase')  
-    print(result)
-    
-    vision_service.close()

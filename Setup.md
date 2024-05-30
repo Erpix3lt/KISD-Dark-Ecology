@@ -57,10 +57,13 @@ Hit enter after each command!
 9.  In order to execute the servo_service_test script run: `python servo_service_test.py`
 10.  If you want to stop it type: Control C
 
-### Connect the servo motor
+### Connect Servo and Ultrasonic
 ![GPIO LAYOUT](https://www.raspberrypi.com/documentation/computers/images/GPIO-Pinout-Diagram-2.png)
 - RIGHT Servo pin is 26 (Pointing the USB ports towards you the 2nd closest on the left)
 - LEFT Servo pin is 13 (Pointing the USB ports towards you the 4th closest on the left)
+
+- TRIG: Connect to GPIO pin 17.
+- ECHO: Connect to GPIO pin 18
 
 ## Server
 As of May we introduced a different architecture, where we are using a personal pc as a server instance, running object detection providing only guiding args to the robot in response. This helps with faster runtimes and makes developing more clear.
