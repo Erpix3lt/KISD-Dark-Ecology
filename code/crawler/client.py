@@ -6,7 +6,7 @@ class Client:
     def __init__(self):
         load_dotenv()  # Load environment variables from .env file
         self.server_ip = os.getenv('SERVER_IP')  # Retrieve SERVER_IP from environment variables
-        self.url = f'http://{self.server_ip}:5000'  # Construct the URL for the add endpoint
+        self.url = f'http://{self.server_ip}:5500'  # Construct the URL for the add endpoint
 
     def post_add(self, a, b):
         payload = {'a': a, 'b': b}  # Data to send in the request
