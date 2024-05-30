@@ -16,7 +16,9 @@ class Client:
       return response.json()
       
     def analyse_image(self):
+      self.vision_service.start()
       image = self.vision_service.capture_array()
+      self.vision_service.close()
       response = requests.post(self.url + '/analyse_image', image)
       return response.json()
 
