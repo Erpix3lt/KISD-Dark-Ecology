@@ -13,7 +13,6 @@ class Client:
         self.server_ip: str = os.getenv('SERVER_IP')  
         self.server_port: int = int(os.getenv('SERVER_PORT'))
         self.url: str = f'http://{self.server_ip}:{self.server_port}'
-        self.vision_service: VisionService = VisionService()
         
     def pil_to_base_64(self, image: Image.Image) -> base64:
         if image.mode == 'RGBA':
@@ -41,17 +40,18 @@ class Client:
 
 if __name__ == '__main__':
     client = Client()
-    client.vision_service.start()
+    vision_service = VisionService()
+    vision_service.start()
 
     result: Dict[str, Any] = client.is_healthy()  
     print(result)
 
-    image: Image.Image = Image.fromarray(client.vision_service.capture_array())
+    image: Image.Image = Image.fromarray(vision_service.capture_array())
     result = client.analyse_image(image)  
     print(result)
     
-    image: Image.Image = Image.fromarray(client.vision_service.capture_array())
+    image: Image.Image = Image.fromarray(vision_service.capture_array())
     result = client.lead_me_to(image, 'vase')  
     print(result)
     
-    client.vision_service.close()
+    vision_service.close()

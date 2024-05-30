@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from distance_service import DistanceService
 from client import Client
 from PIL import Image
+from typing import Dict, Any
 
 class Crawler():
     def __init__(self):
@@ -22,18 +23,20 @@ class Crawler():
 
     def run(self):
         while True:
-            image: Image.Image = Image.fromarray(self.vision_service.capture_array())
-            result = self.client.lead_me_to(image, 'vase')
-            if result == 'RIGHT':
-                self.servo_service.go_right()
-            if result == 'LEFT':
-                self.servo_service.go_left()
-            if result == 'UNKNOWN':
-                logging.info("NOTHING DETECTED")
-            # if self.distance_analyser.is_Colliding():
-            #     logging.info("Collision detected. Stopping.")
-            #     self.servo_service.stop(duration=50)
-            #     self.servo_service.rotate(duration=50)
+            is_healthy: Dict[str, Any] = self.client.is_healthy()  
+            if is_healthy:  
+                image: Image.Image = Image.fromarray(self.vision_service.capture_array())
+                result = self.client.lead_me_to(image, 'vase')
+                if result == 'RIGHT':
+                    self.servo_service.go_right()
+                if result == 'LEFT':
+                    self.servo_service.go_left()
+                if result == 'UNKNOWN':
+                    logging.info("NOTHING DETECTED")
+                # if self.distance_analyser.is_Colliding():
+                #     logging.info("Collision detected. Stopping.")
+                #     self.servo_service.stop(duration=50)
+                #     self.servo_service.rotate(duration=50)
 
 if __name__ == "__main__":
     crawler = Crawler()
