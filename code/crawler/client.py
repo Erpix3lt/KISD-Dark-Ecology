@@ -2,6 +2,9 @@ import requests
 from dotenv import load_dotenv
 import os
 from vision_service import VisionService
+from PIL import Image
+from io import BytesIO
+import base64
 
 class Client:
     def __init__(self):
@@ -15,16 +18,23 @@ class Client:
       response = requests.get(self.url + '/is_healthy')
       return response.json()
       
-    def analyse_image(self):
-      self.vision_service.start()
-      image = self.vision_service.capture_array()
-      self.vision_service.close()
-      response = requests.post(self.url + '/analyse_image', image)
+    def analyse_image(self, image: Image):
+      buffered = BytesIO()
+      image.save(buffered, format="JPEG")
+
+      payload = {'image': base64.b64encode(buffered.getvalue()).decode('utf-8')}
+      
+      response = requests.post(self.url + '/analyse_image', json=payload)
       return response.json()
 
 if __name__ == '__main__':
     client = Client()
+    client.vision_service.start()
+
     result = client.is_healthy()  
     print(result)
-    result = client.analyse_image()  
+
+    result = client.analyse_image(Image.fromarray(client.vision_service.capture_array()))  
     print(result)
+    
+    client.vision_service.close()
