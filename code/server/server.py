@@ -46,10 +46,9 @@ class Server:
                 result, analysed_image = self.detection_service.analyse_image(image)
                 if self.log_level == 'DEBUG':
                     self.logger.log_analysed_image(analysed_image)  
-                direction = self.detection_service.navigate(result, where_to)
-                if direction is 'unknown':
-                    return jsonify({'error': f'There was an error while asserting the direction. 
-                                    The desired object might not have found.'}), 500
+                direction = self.detection_service.navigate(image, result, where_to)
+                if direction == 'unknown':
+                    return jsonify({'error': 'There was an error while asserting the direction. The desired object might not have found.'}), 500
                 return jsonify({'result': direction}), 200
             except Exception as e:
                 return jsonify({'error': f'There was an error while analysing the image: {str(e)}'}), 500

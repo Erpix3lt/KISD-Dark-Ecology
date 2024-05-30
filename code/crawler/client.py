@@ -51,7 +51,7 @@ if __name__ == '__main__':
     print(result)
     
     image: Image.Image = Image.fromarray(client.vision_service.capture_array())
-    result = client.lead_me_to(image, 'boat')  
+    result = client.lead_me_to(image, 'book')  
     print(result)
     
     client.vision_service.close()

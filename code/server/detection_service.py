@@ -81,33 +81,34 @@ class Detection_Service:
         result = self.model(self.initialise_image(image))
         return result, self.finalize_image(image, result)
       
-    def navigate(self, result, where_to: str) -> str:
-        """
-        Determines the direction to reach the first detected instance of the desired object within the image.
+    def navigate(self, image: Image.Image, result, where_to: str) -> str:
+      """
+      Determines the direction to reach the first detected instance of the desired object within the image.
 
-        Args:
-        - result: Result of the object detection.
-        - where_to: The desired direction relative to the desired object.
+      Args:
+      - image: The original input image.
+      - result: Result of the object detection.
+      - where_to: The desired direction relative to the desired object.
 
-        Returns:
-        A string indicating the direction to reach the desired object: 'left', 'right', or 'unknown'.
-        """
-        data_frame = result.pandas().xyxy[0]
+      Returns:
+      A string indicating the direction to reach the desired object: 'left', 'right', or 'unknown'.
+      """
+      data_frame = result.pandas().xyxy[0]
 
-        # Filter detection results for the desired object type
-        desired_objects = data_frame[data_frame['name'] == where_to]
+      # Filter detection results for the desired object type
+      desired_objects = data_frame[data_frame['name'] == where_to]
 
-        if len(desired_objects) == 0:
-            return 'unknown'  # Desired object not found
+      if len(desired_objects) == 0:
+          return 'unknown'  # Desired object not found
 
-        image_width = result.imgs[0].shape[1]  # Width of the image
-        object_x_center = (desired_objects['xmin'] + desired_objects['xmax']) / 2  # X center of the object
+      image_width = image.width  # Width of the image
+      object_x_center = (desired_objects['xmin'] + desired_objects['xmax']) / 2  # X center of the object
 
-        # Get the x coordinate of the first detected instance of the desired object
-        first_object_x = object_x_center.iloc[0]
+      # Get the x coordinate of the first detected instance of the desired object
+      first_object_x = object_x_center.iloc[0]
 
-        # Determine if the first detected instance is on the left or right half of the image
-        if first_object_x < image_width / 2:
-            return 'left'
-        else:
-            return 'right'
+      # Determine if the first detected instance is on the left or right half of the image
+      if first_object_x < image_width / 2:
+          return 'left'
+      else:
+          return 'right'
