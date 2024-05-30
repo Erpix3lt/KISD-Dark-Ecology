@@ -19,11 +19,11 @@ class Client:
       return response.json()
       
     def analyse_image(self, image: Image):
+      if image.mode == 'RGBA':
+        image = image.convert('RGB')
       buffered = BytesIO()
       image.save(buffered, format="JPEG")
-
       payload = {'image': base64.b64encode(buffered.getvalue()).decode('utf-8')}
-      
       response = requests.post(self.url + '/analyse_image', json=payload)
       return response.json()
 
