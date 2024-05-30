@@ -10,6 +10,11 @@ lerna-debug.log*
 #venv
 **/_env_dark_eco/
 
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore __pycache__ directories
+__pycache__/
 
 # Ignore all images in the _images folder
 _images/*.jpg
