@@ -8,7 +8,6 @@ class Logger:
         pass
 
     def log_analysed_image(self, image: Image.Image, add_timestamp=True):
-        webbrowser.open('about:blank')
 
         if add_timestamp:
             timestamp = time.strftime('%Y-%m-%d_%H-%M-%S')

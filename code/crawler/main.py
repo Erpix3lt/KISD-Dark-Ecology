@@ -22,9 +22,9 @@ class Crawler():
         self.servo_service.close()
 
     def run(self):
-        while True:
-            is_healthy: Dict[str, Any] = self.client.is_healthy()  
-            if is_healthy:  
+        is_healthy: Dict[str, Any] = self.client.is_healthy()  
+        if is_healthy:  
+            while True:
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
                 result = self.client.lead_me_to(image, 'vase')
                 if result == 'RIGHT':
@@ -37,6 +37,8 @@ class Crawler():
                 #     logging.info("Collision detected. Stopping.")
                 #     self.servo_service.stop(duration=50)
                 #     self.servo_service.rotate(duration=50)
+                time.sleep(10)
+            
 
 if __name__ == "__main__":
     crawler = Crawler()
