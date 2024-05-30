@@ -28,8 +28,10 @@ class Crawler():
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
                 result = self.client.lead_me_to(image, where_to)
                 if result == 'RIGHT':
+                    logging.warn("RIGHT")
                     self.servo_service.go_right()
                 if result == 'LEFT':
+                    logging.warn("LEFT")
                     self.servo_service.go_left()
                 if result == 'UNKNOWN':
                     logging.info("NOTHING DETECTED")
