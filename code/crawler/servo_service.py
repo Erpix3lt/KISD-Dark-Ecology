@@ -44,7 +44,7 @@ class ServoService:
 
     def go_right(self, duration = 1):
         # during the duration of 1 second move in the right direction
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 0.2)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 1)
         self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + 1.6)
         time.sleep(duration)
 
@@ -78,7 +78,7 @@ class ServoService:
         time.sleep(duration)
         
     def go_only_right(self, duration = 1):
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + 0.4)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + 2)
         time.sleep(duration)
         
     def go_only_left(self, duration = 1):
