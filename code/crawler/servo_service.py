@@ -76,6 +76,14 @@ class ServoService:
         self.right_pwm.ChangeDutyCycle(specific_speed)
         self.left_pwm.ChangeDutyCycle(-1 *specific_speed)
         time.sleep(duration)
+        
+    def go_only_right(self, duration = 1):
+        self.right_pwm.ChangeDutyCycle(self.right_center_position + 0.4)
+        time.sleep(duration)
+        
+    def go_only_left(self, duration = 1):
+        self.left_pwm.ChangeDutyCycle(self.left_center_position + 0.4)
+        time.sleep(duration)
 
     def rotate_360(self):
         self.rotate(duration=10)
