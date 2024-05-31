@@ -15,13 +15,13 @@ while True:
         print("Going Backward")
         servoService.go_backward(duration=2)
     elif direction == 'OR':
-        print("Going Right")
+        print("Going O Right")
         servoService.go_only_right(duration=2)
     elif direction == 'R':
         print("Going Right")
         servoService.go_right(duration=2)
     elif direction == 'OL':
-        print("Going Right")
+        print("Going O LEFT")
         servoService.go_only_left(duration=2)
     elif direction == 'L':
         print("Going Left")
