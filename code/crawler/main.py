@@ -25,12 +25,15 @@ class Crawler():
         if self.previous_lead_to is not None:
             if self.previous_lead_to == 'RIGHT':
                 print("RIGHT")
+                self.servo_service.stop(1)
                 self.servo_service.go_right()
             elif self.previous_lead_to == 'LEFT':
                 print("LEFT")
+                self.servo_service.stop(1)
                 self.servo_service.go_left()
             elif self.previous_lead_to == 'UNKNOWN':
                 print("ROTATING")
+                self.servo_service.stop(1)
                 self.servo_service.rotate(5)
             
     def handle_is_colliding(self):
@@ -42,14 +45,17 @@ class Crawler():
         is_healthy: Dict[str, Any] = self.client.is_healthy()  
         if is_healthy['result']:  
             while True:
+                self.servo_service.stop(1)
                 image: Image.Image = Image.fromarray(self.vision_service.capture_array())
                 try: 
                     lead_to = self.client.lead_me_to(image, where_to)
                     if lead_to['result'] == 'RIGHT':
                         print("RIGHT")
+                        self.servo_service.stop(1)
                         self.servo_service.go_right()
                     if lead_to['result'] == 'LEFT':
                         print("LEFT")
+                        self.servo_service.stop(1)
                         self.servo_service.go_left()
                     if lead_to['result'] == 'UNKNOWN':
                         print("NOTHING DETECTED")

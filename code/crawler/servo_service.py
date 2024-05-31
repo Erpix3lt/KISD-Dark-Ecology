@@ -47,14 +47,14 @@ class ServoService:
 
     def go_left(self, duration = 1):
         # during the duration of 1 second move in the left direction
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_fast)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_slow)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_slow)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_fast)
         time.sleep(duration)        
 
     def go_right(self, duration = 1):
         # during the duration of 1 second move in the right direction
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_slow)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_fast)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_fast)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_slow)
         time.sleep(duration)
 
     def stop(self, duration = 1):
