@@ -78,7 +78,7 @@ class ServoService:
         time.sleep(duration)
         
     def go_only_right(self, duration = 1):
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 1.7)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 1.8)
         time.sleep(duration)
         
     def go_only_left(self, duration = 1):
