@@ -82,7 +82,7 @@ class ServoService:
         time.sleep(duration)
         
     def go_only_left(self, duration = 1):
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + 0.2)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + 0.5)
         time.sleep(duration)
 
     def rotate_360(self):
