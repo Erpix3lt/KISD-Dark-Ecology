@@ -10,24 +10,25 @@ while True:
 
     if direction == 'F':
         print("Going Forward")
-        servoService.go_forward(duration=2)
+        servoService.go_forward(duration=1)
     elif direction == 'B':
         print("Going Backward")
-        servoService.go_backward(duration=2)
+        servoService.go_backward(duration=1)
     elif direction == 'OR':
         print("Going O Right")
-        servoService.go_only_right(duration=2)
+        servoService.go_only_right(duration=1)
     elif direction == 'R':
         print("Going Right")
-        servoService.go_right(duration=2)
+        servoService.go_right(duration=1)
     elif direction == 'OL':
         print("Going O LEFT")
-        servoService.go_only_left(duration=2)
+        servoService.go_only_left(duration=1)
     elif direction == 'L':
         print("Going Left")
-        servoService.go_left(duration=2)
+        servoService.go_left(duration=1)
     elif direction == 'Q':
         print("Quitting")
         break
     else:
         print("Invalid input. Please enter F, B, R, L, or Q.")
+    servoService.stop(1)
