@@ -35,17 +35,26 @@ class ServoService:
         self.thirteen_center_position = thirteen_center_position
         self.twentysix_pwm.start(self.twentysix_center_position)
         self.thirteen_pwm.start(self.thirteen_center_position)
+        
+        # MOVING VALUES
+        self.twentysix_fast = -3.5
+        self.twentysix_slow = -2
+        self.twentysix_back = +0.7
+        
+        self.thirteen_fast = +2
+        self.thirteen_slow = +0.5
+        self.thirteen_back = -0.5
 
     def go_left(self, duration = 1):
         # during the duration of 1 second move in the left direction
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 0.6)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + 1.3)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_fast)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_slow)
         time.sleep(duration)        
 
     def go_right(self, duration = 1):
         # during the duration of 1 second move in the right direction
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 1)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + 1.6)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_slow)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_fast)
         time.sleep(duration)
 
     def stop(self, duration = 1):
@@ -57,19 +66,22 @@ class ServoService:
     def go_forward(self, duration = 1):
         # bring both pwm into a neutral forward position
         print("Moving forward, at 6.6 and 8.2")
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - 0.4)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + 1.3)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_slow)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_slow)
         time.sleep(duration)
 
-    def go_backward(self, additional_speed = 1.5, duration = 1):
+    def go_backward(self, duration = 1):
         # bring both pwm into a neutral backward position
-        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position - additional_speed/2)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + additional_speed)
+        self.stop(duration=0.5)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_back )
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_back)
         time.sleep(duration)
 
-    def rotate(self, additional_speed = 3, duration = 1):
-        self.twentysix_pwm.ChangeDutyCycle(7 - additional_speed)
-        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position)
+    def rotate(self, duration = 1):
+        # bring both pwm into a neutral backward position
+        self.stop(duration=0.5)
+        self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + self.twentysix_fast)
+        self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + self.thirteen_back)
         time.sleep(duration)
 
     def go_specific_speed(self, specific_speed, duration):
