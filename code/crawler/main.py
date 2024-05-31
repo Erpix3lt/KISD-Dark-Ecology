@@ -41,7 +41,7 @@ class Crawler():
         self.servo_service.stop(duration=50)
         self.servo_service.rotate(duration=50)
 
-    def run(self, where_to = 'cat'):
+    def run(self, where_to = 'cup'):
         is_healthy: Dict[str, Any] = self.client.is_healthy()  
         if is_healthy['result']:  
             while True:
