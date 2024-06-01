@@ -11,14 +11,12 @@ import logging
 class Server:
     def __init__(self):
       load_dotenv()
-      self.logger = logging.getLogger(__name__)
-      self.logger.setLevel(logging.INFO)
       self.app = Flask(__name__)
       self.port = int(os.getenv('PORT', 5500))
       self.host = os.getenv('HOST', '0.0.0.0')
       self.vision_service = VisionService()
       self.vision_service.start()
-      self.servo_service = ServoService(self.logger)
+      self.servo_service = ServoService()
       
       @self.app.route('/is_healthy', methods=['GET'])
       def is_healthy():
