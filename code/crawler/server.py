@@ -18,7 +18,7 @@ class Server:
       self.host = os.getenv('HOST', '0.0.0.0')
       self.vision_service = VisionService()
       self.vision_service.start()
-      self.servo_service = ServoService(logger)
+      self.servo_service = ServoService(self.logger)
       
       @self.app.route('/is_healthy', methods=['GET'])
       def is_healthy():
