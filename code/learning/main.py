@@ -3,19 +3,19 @@ from PIL import Image
 from io import BytesIO
 import base64
 import io
+from detection_service import DetectionService
+from logger import Logger
+from servo_helper import ServoHelper
 
 class Main:
   
   def __init__(self):
     self.client = Client()
+    self.detection_service = DetectionService()
+    self.logger = Logger()
+    self.servo_helper = ServoHelper()
     
-    self.twentysix_fast = -3.5
-    self.twentysix_slow = -2
-    self.twentysix_back = +0.7
-
-    self.thirteen_fast = +2
-    self.thirteen_slow = +0.5
-    self.thirteen_back = -0.5
+    self.reward_targets = ['cup', 'car']
     
   def base64_to_pil(self, base64_image: str) -> Image.Image:
     if ';base64,' in base64_image:
@@ -30,7 +30,9 @@ class Main:
 if __name__ == "__main__":
   main = Main()
   image = main.get_image()
-  image.show()
-  main.client.set_motor_speed(0.5, 0.7)
+  result, analysed_image = main.detection_service.analyse_image(image)
+  print('Result', result)
+  main.logger.log_analysed_image(analysed_image)
+  main.client.set_motor_speed(main.servo_helper.get_twentysix_delta(0.5), main.servo_helper.get_thirteen_delta(-0.5))
   
     

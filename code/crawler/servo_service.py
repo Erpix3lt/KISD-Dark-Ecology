@@ -23,6 +23,7 @@ class ServoService:
             twentysix_delta (int): Change in duty cycle for the first servo motor.
             thirteen_delta (int): Change in duty cycle for the second servo motor.
         """
+        print(f'Set motor speed with values, twentysix_delta: {twentysix_delta} and thirteen_delta {thirteen_delta}')
         self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + twentysix_delta)
         self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + thirteen_delta)
 
