@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 
 class ServoService:
 
-    def __init__(self, pin_twentysix = 26, pin_thirteen = 13, twentysix_center_position = 7, thirteen_center_position = 7.1):
+    def __init__(self,logger=None,  pin_twentysix = 26, pin_thirteen = 13, twentysix_center_position = 7, thirteen_center_position = 7.1):
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(pin_twentysix, GPIO.OUT)
@@ -15,6 +15,8 @@ class ServoService:
         self.twentysix_pwm.start(self.twentysix_center_position)
         self.thirteen_pwm.start(self.thirteen_center_position)
         
+        self.logger = logger
+        
     def set_motor_speed(self, twentysix_delta: float, thirteen_delta: float):
         """
         Sets the speed of the servo motors by adjusting their duty cycles.
@@ -23,7 +25,7 @@ class ServoService:
             twentysix_delta (int): Change in duty cycle for the first servo motor.
             thirteen_delta (int): Change in duty cycle for the second servo motor.
         """
-        print(f'Setting motor speed, with twentysix_delta {twentysix_delta}, {thirteen_delta}')
+        if self.logger is not None: self.logger.debug(f'Setting motor speed, with twentysix_delta {twentysix_delta}, {thirteen_delta}.')
         self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position + twentysix_delta)
         self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position + thirteen_delta)
 
@@ -31,6 +33,7 @@ class ServoService:
         """
         Stops the servo motors by resetting their duty cycles to the center position.
         """
+        if self.logger is not None: self.logger.debug(f'Stopping motor.')
         self.twentysix_pwm.ChangeDutyCycle(self.twentysix_center_position)
         self.thirteen_pwm.ChangeDutyCycle(self.thirteen_center_position)
 
@@ -38,6 +41,7 @@ class ServoService:
         """
         Stops the PWM signals and performs GPIO cleanup.
         """
+        if self.logger is not None: self.logger.debug(f'Closing motor.')
         self.twentysix_pwm.stop()
         self.thirteen_pwm.stop()
         GPIO.cleanup()

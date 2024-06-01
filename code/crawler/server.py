@@ -6,17 +6,19 @@ from servo_service import ServoService
 from PIL import Image
 from io import BytesIO
 import base64
+import logging
 
 class Server:
     def __init__(self):
       load_dotenv()
+      self.logger = logging.getLogger(__name__)
+      self.logger.setLevel(logging.INFO)
       self.app = Flask(__name__)
       self.port = int(os.getenv('PORT', 5500))
       self.host = os.getenv('HOST', '0.0.0.0')
-      self.log_level = os.getenv('LOG_LEVEL', 'INFO')
       self.vision_service = VisionService()
       self.vision_service.start()
-      self.servo_service = ServoService()
+      self.servo_service = ServoService(logger)
       
       @self.app.route('/is_healthy', methods=['GET'])
       def is_healthy():
