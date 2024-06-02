@@ -30,9 +30,6 @@ class Client:
       return response.json()
     
     def set_motor_speed(self, twentysix_delta: float, thirteen_delta: float) -> Dict[str, Any]:
-      if isinstance(twentysix_delta, np.ndarray) and isinstance(thirteen_delta, np.ndarray):
-        twentysix_delta = twentysix_delta.tolist()
-        thirteen_delta = thirteen_delta.tolist()
       data = {
         "twentysix_delta": twentysix_delta,
         "thirteen_delta": thirteen_delta

@@ -22,13 +22,13 @@ class Model(nn.Module):
     Methods:
         forward(x): Forward pass through the network.
     """
-    def __init__(self, targets: List[str]):
+    def __init__(self):
         """
         Initializes the neural network layers.
         """
         super(Model, self).__init__()
         self.input_fields = 4
-        self.fc1 = nn.Linear(len(targets) * self.input_fields, 128)
+        self.fc1 = nn.Linear(2 * self.input_fields, 128)
         self.fc2 = nn.Linear(128, 128)
         self.fc3 = nn.Linear(128, 2)
         

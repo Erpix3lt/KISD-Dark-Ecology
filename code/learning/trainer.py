@@ -13,7 +13,7 @@ class Trainer():
   def __init__(self) -> None:
     self.environment = Environment()
     self.reward = Reward()
-    self.model = Model(self.reward.targets)
+    self.model = Model()
     self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
     self.criterion = nn.MSELoss()
     
@@ -24,8 +24,8 @@ class Trainer():
     self.epsilon_decay = 0.995
     self.epsilon_min = 0.01
     
-    self.episodes = 1
-    self.steps = 2
+    self.episodes = 1000
+    self.steps = 200
 
   def train(self): 
     for episode in range(self.episodes):
@@ -37,13 +37,18 @@ class Trainer():
         if random.random() < self.epsilon:
           # RANDOM ACTION, EXPLORATIVE
           action = [random.uniform(-1, 1), random.uniform(-1, 1)]
+          print("RANDOM ACTION,", action)
         else:
           with torch.no_grad():
             # ESTIMATED ACTION, EXPLOITIVE
-            action = self.model(torch.tensor(state, dtype=torch.float32)).numpy()
+            action = self.model(torch.tensor(state, dtype=torch.float32))
+            # Clip action values, should they exceed 1 or -1
+            action = action.numpy()
+            action = [max(-1, min(1, a)) for a in action] 
+            print("ESTIMATED ACTION,", action)
                 
         next_state, reward, done = self.environment.step(action)
-        time.sleep(1)
+        #time.sleep(1)
         next_state = self.preprocess_state(next_state)
         
         self.replay_memory.append((state, action, reward, next_state, done))
@@ -55,7 +60,7 @@ class Trainer():
           for state_b, action_b, reward_b, next_state_b, done_b in minibatch:
             target = reward_b
             if not done_b:
-                target += self.gamma * torch.max(self.model(torch.tensor(next_state_b, dtype=torch.float32)))
+              target += self.gamma * torch.max(self.model(torch.tensor(next_state_b, dtype=torch.float32)))
             
             output = self.model(torch.tensor(state_b, dtype=torch.float32))
             loss = self.criterion(output, torch.tensor(target, dtype=torch.float32))
@@ -89,7 +94,7 @@ class Trainer():
         - If the label is not 'cup' or 'car', the corresponding state elements remain 0.
         - The resulting state list has a length of 8, where each group of 4 elements corresponds to a single object.
       """
-    state = [0] * (len(self.reward.targets) * self.model.input_fields)
+    state = [0] * (2 * self.model.input_fields)
     for i, detection in enumerate(detections):
       if detection.label in self.reward.targets:
         state[i * self.model.input_fields:(i + 1) * self.model.input_fields] = [1, detection.confidence, detection.bounding_box[2], detection.bounding_box[3]]
