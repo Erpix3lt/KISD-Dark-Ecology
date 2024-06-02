@@ -11,6 +11,7 @@ class Main:
   
   def __init__(self):
     self.client = Client()
+    self.client.is_healthy()
     self.detection_service = DetectionService()
     self.logger = Logger()
     self.servo_helper = ServoHelper()

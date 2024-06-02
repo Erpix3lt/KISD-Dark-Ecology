@@ -3,6 +3,11 @@ from dotenv import load_dotenv
 import os
 from typing import Dict, Any
 
+class ServiceNotHealthyError(Exception):
+  """Exception raised when the service is not healthy."""
+  def __init__(self, message="The client service is not healthy"):
+    self.message = message
+    super().__init__(self.message)
 
 class Client:
     
@@ -13,8 +18,11 @@ class Client:
       self.url: str = f'http://{self.server_ip}:{self.server_port}'
         
     def is_healthy(self) -> Dict[str, Any]:
-      response = requests.get(self.url + '/is_healthy')
-      return response.json()
+      try:
+        response = requests.get(self.url + '/is_healthy')
+        return response.json()
+      except Exception as e:
+        raise ServiceNotHealthyError from e
       
     def get_image(self) -> Dict[str, Any]:
       response = requests.get(self.url + '/get_image')
@@ -27,6 +35,3 @@ class Client:
       }
       response = requests.post(self.url + '/set_motor_speed', json=data)
       return response.json()
-    
-client = Client()
-print(client.is_healthy()['result'])
