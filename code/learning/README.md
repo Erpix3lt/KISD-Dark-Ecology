@@ -11,9 +11,14 @@ Our aim is for the model to learn to associate the reward with the distance and 
 - https://chatgpt.com/share/d0b5e154-b9e0-4a49-950b-adbfc1d4d0ca
 
 ## Key Learnings
-In a Deep Q-Network (DQN) approach, the following components are essential:
+1. In a Deep Q-Network (DQN) approach, the following components are essential:
 
 - Actions
 - Rewards
 - Environment
 - Agent
+
+2. Discrete vs. continuous actions:
+
+- Discrete actions are predefined actions. In our case, motor fast, motor slow, motor backwards
+- Continuous actions present the model with a stream of choices. Motor +98% Speed, motor -50% speed.
