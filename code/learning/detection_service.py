@@ -1,8 +1,16 @@
+from dataclasses import dataclass
 import torch
 import cv2
 from PIL import Image
 import numpy as np
 import time
+from typing import List
+
+@dataclass
+class Detection:
+    label: str
+    confidence: float
+    bounding_box: tuple
 
 class DetectionService:
     """
@@ -39,32 +47,42 @@ class DetectionService:
         Finalized Image
         """
         np_image = np.array(image)
-        
+
         if add_timestamp:
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
             font = cv2.FONT_HERSHEY_SIMPLEX
             cv2.putText(np_image, timestamp, (10, 30), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
-        
+
+        detections = self.polish_result(result)
+
+        for detection in detections:
+            x1, y1, x2, y2 = detection.bounding_box
+            text = detection.label + ' ' + str(detection.confidence)
+
+            cv2.rectangle(np_image, (x1, y1), (x2, y2), (255, 255, 0), 2)
+            cv2.putText(np_image, text, (x1, y1 - 5), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 0), 2)
+
+        return Image.fromarray(np_image)
+    
+    def polish_result(self, result) -> List[Detection]:
+        """
+        Helper class polishing the result. this will return an array of custom object for each detected object.
+        The custom object consists of the label (object name, e.g car), its bounding boxes and the confidence score.
+        """
+        detections = []
         data_frame = result.pandas().xyxy[0]
         indexes = data_frame.index
+        
         for index in indexes:
-            # Find the coordinate of top left corner of bounding box
             x1 = int(data_frame['xmin'][index])
             y1 = int(data_frame['ymin'][index])
-            # Find the coordinate of right bottom corner of bounding box
             x2 = int(data_frame['xmax'][index])
             y2 = int(data_frame['ymax'][index])
-
-            # Find label name
-            label = data_frame['name'][index]
             
-            # Find confidence score of the model
-            conf = data_frame['confidence'][index]
-            text = label + ' ' + str(conf.round(decimals=2))
-
-            cv2.rectangle(np_image, (x1,y1), (x2,y2), (255,255,0), 2)
-            cv2.putText(np_image, text, (x1,y1-5), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,0), 2)
-        return Image.fromarray(np_image)
+            detection = Detection(label=data_frame['name'][index], confidence=data_frame['confidence'][index].round(decimals=2), bounding_box=(x1, y1, x2, y2))
+            detections.append(detection)
+        
+        return detections
         
     def analyse_image(self, image: Image.Image):
         """
@@ -81,34 +99,4 @@ class DetectionService:
         result = self.model(self.initialise_image(image))
         return result, self.finalize_image(image, result)
       
-    def navigate(self, image: Image.Image, result, where_to: str) -> str:
-      """
-      Determines the direction to reach the first detected instance of the desired object within the image.
-
-      Args:
-      - image: The original input image.
-      - result: Result of the object detection.
-      - where_to: The desired direction relative to the desired object.
-
-      Returns:
-      A string indicating the direction to reach the desired object: 'left', 'right', or 'unknown'.
-      """
-      data_frame = result.pandas().xyxy[0]
-
-      # Filter detection results for the desired object type
-      desired_objects = data_frame[data_frame['name'] == where_to]
-
-      if len(desired_objects) == 0:
-          return 'UNKNOWN'  # Desired object not found
-
-      image_width = image.width  # Width of the image
-      object_x_center = (desired_objects['xmin'] + desired_objects['xmax']) / 2  # X center of the object
-
-      # Get the x coordinate of the first detected instance of the desired object
-      first_object_x = object_x_center.iloc[0]
-
-      # Determine if the first detected instance is on the left or right half of the image
-      if first_object_x < image_width / 2:
-          return 'RIGHT'
-      else:
-          return 'LEFT'
+    

@@ -1,11 +1,11 @@
 from client import Client
 from PIL import Image
-from io import BytesIO
 import base64
 import io
-from detection_service import DetectionService
+from detection_service import DetectionService, Detection
 from logger import Logger
 from servo_helper import ServoHelper
+from typing import List
 
 class Main:
   
@@ -32,7 +32,9 @@ if __name__ == "__main__":
   main = Main()
   image = main.get_image()
   result, analysed_image = main.detection_service.analyse_image(image)
-  print('Result', result)
+  detections: List[Detection] = main.detection_service.polish_result(result)
+  for detection in detections:
+    print(detection)
   main.logger.log_analysed_image(analysed_image)
   main.client.set_motor_speed(main.servo_helper.get_twentysix_delta(0.5), main.servo_helper.get_thirteen_delta(-0.5))
   
