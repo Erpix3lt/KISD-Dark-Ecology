@@ -9,6 +9,8 @@ Our aim is for the model to learn to associate the reward with the distance and 
 
 ## References
 - https://chatgpt.com/share/d0b5e154-b9e0-4a49-950b-adbfc1d4d0ca
+- Intro Deep Reinforcement learning: https://www.youtube.com/watch?v=cO5g5qLrLSo
+- Doc, pytorch DQN deep reinforcement learning: https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html
 
 ## Key Learnings
 1. In a Deep Q-Network (DQN) approach, the following components are essential:
