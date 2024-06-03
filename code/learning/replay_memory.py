@@ -1,12 +1,11 @@
 import random
 from collections import namedtuple, deque
 
-
-
 class ReplayMemory(object):
 
     def __init__(self, capacity):
-        self.Transition = namedtuple('Transition',('state', 'action', 'next_state', 'reward'))
+        self.Transition = namedtuple('Transition',
+                        ('state', 'action', 'next_state', 'reward'))
         self.memory = deque([], maxlen=capacity)
 
     def push(self, *args):

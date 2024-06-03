@@ -28,8 +28,10 @@ class Environment:
       self.log_level = log_level
       self.logger = Logger()
       self.servo_helper = ServoHelper()
-      self.approach_treshold = 5000000
+      self.approach_treshold = 50000
       self.reward = Reward()
+      self.n_input = 2
+      self.n_action = 9
 
     def reset(self):
       self.state = [0, 0]
@@ -52,8 +54,9 @@ class Environment:
         self.logger.log_analysed_image(analysed_image)
       return self.detection_service.polish_result(result)
 
-    def step(self, action, duration = 1):
-      self.client.set_motor_speed(self.servo_helper.get_twentysix_delta(action[0]), self.servo_helper.get_thirteen_delta(action[1]))
+    def step(self, action: int, duration = 1):
+      twentysix_delta, thirteen_delta = self.servo_helper.map_action_to_motor_speeds(action)
+      self.client.set_motor_speed(twentysix_delta, thirteen_delta)
       time.sleep(duration)
       detections = self.get_detections()
       if self.log_level == 'DEBUG':
@@ -86,15 +89,13 @@ class Environment:
       """
       Check wether the robot has approached the desired object sufficiently. If so return true. Our run is done. If not return false, continue.
       """
+      is_done = False
       for detection in detections:
         if detection.label in self.reward.targets:
           box_size = (detection.bounding_box[2] - detection.bounding_box[0]) * (detection.bounding_box[3] - detection.bounding_box[1])
           if box_size > self.approach_treshold:
-            return True
-          else: 
-            return False
-        else:
-          return False
+            is_done = True
+      return is_done
           
 
 

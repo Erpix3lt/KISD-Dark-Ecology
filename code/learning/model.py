@@ -32,4 +32,4 @@ class DQN(nn.Module):
         """
         x = F.relu(self.layer1(x))  
         x = F.relu(self.layer2(x))
-        return torch.tanh(self.layer3(x))  # Output layer with tanh activation to constrain outputs to [-1, 1]
+        return self.layer3(x) 
