@@ -19,7 +19,7 @@ EPS_DECAY = 1000
 TAU = 0.005
 LR = 1e-4
 
-class TrainerV():
+class Trainer():
   
   def __init__(self) -> None:
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -27,7 +27,7 @@ class TrainerV():
     self.target_net = DQN(n_input = 2, n_actions = 2).to(self.device)
     self.target_net.load_state_dict(self.policy_net.state_dict())
     
-    self.environment = Environment()
+    self.environment = Environment('DEBUG')
     self.memory = ReplayMemory(1000)
     self.Transition = self.memory.Transition
     self.optimizer = optim.AdamW(self.policy_net.parameters(), lr=LR, amsgrad=True)
@@ -39,11 +39,11 @@ class TrainerV():
     eps_threshold = EPS_END + (EPS_START - EPS_END) * \
       math.exp(-1. * self.steps_done / EPS_DECAY)
     self.steps_done += 1
-    if sample > eps_threshold:
+    if sample > eps_threshold and state is not None:
       with torch.no_grad():
-        return self.policy_net(state).max(1)[1].view(1, 1)    
+          return self.policy_net(state)[0]
     else:
-      return torch.tensor([[random.randrange(self.output_dim)]], dtype=torch.long)
+      return torch.tensor([random.uniform(-1, 1), random.uniform(-1, 1)], dtype=torch.float32)
     
   def optimize_model(self):
     if len(self.memory) < BATCH_SIZE:
@@ -58,6 +58,8 @@ class TrainerV():
     action_batch = torch.cat(batch.action)
     reward_batch = torch.cat(batch.reward)
     state_action_values = self.policy_net(state_batch).gather(1, action_batch)
+    
+    #TODO: LONG64, FLOAT32 Problem  optimize continuous values with PyTorch DQN (Deep Q-Network), typically used for discrete action spaces, you can utilize techniques like discretization or altering the architecture to accommodate continuous action spaces. However, if you want to directly handle continuous action spaces with DQN, you can use techniques like Deep Deterministic Policy Gradients (DDPG) or Twin Delayed DDPG (TD3), which are specifically designed for continuous action spaces. Here's a basic outline of how to use PyTorch for DDPG:
 
     next_state_values = torch.zeros(BATCH_SIZE, device=self.device)
     with torch.no_grad():
@@ -75,8 +77,10 @@ class TrainerV():
   def train(self):
     if torch.cuda.is_available():
       num_episodes = 600
+      print(f"CUDA IS AVAILABLE, num of episodes {num_episodes}")
     else:
-        num_episodes = 50
+      num_episodes = 50
+      print(f"CUDA NOT AVAILABLE, num of episodes {num_episodes}")
 
     for i_episode in range(num_episodes):
         # Initialize the environment and get its state
@@ -84,15 +88,16 @@ class TrainerV():
         state = torch.tensor(state, dtype=torch.float32, device=self.device).unsqueeze(0)
         for t in count():
             action = self.select_action(state)
-            print("Action, ", action)
-            observation, reward, terminated = self.environment.step(action.item())
+            observation, reward, terminated = self.environment.step(action.tolist(), duration=0.2)
+            print(f"Observation: {observation}, Reward {reward}, terminated: {terminated}")
             reward = torch.tensor([reward], device=self.device)
 
             if terminated:
                 next_state = None
             else:
                 next_state = torch.tensor(observation, dtype=torch.float32, device=self.device).unsqueeze(0)
-
+            
+            print("State and nextstate", state, next_state)
             # Store the transition in memory
             self.memory.push(state, action, next_state, reward)
 
@@ -113,7 +118,7 @@ class TrainerV():
     print('Complete')
 
 if __name__ == "__main__":
-  trainer = TrainerV()
+  trainer = Trainer()
   try:
     trainer.train()
     save_dir = "./_saved_models"

@@ -16,9 +16,9 @@ class Reward:
   def __init__(self) -> None:
     load_dotenv()
     self.targets = os.getenv('TARGETS').split(',')
-    self.reward = 1
-    self.normalization_factor = 2000
-    self.punishment = 5
+    self.treat = 1
+    self.normalization_factor = 9000
+    self.punishment = -5
 
 class Environment:
     def __init__(self, log_level = 'INFO'):
@@ -28,7 +28,8 @@ class Environment:
       self.log_level = log_level
       self.logger = Logger()
       self.servo_helper = ServoHelper()
-      self.approach_treshold = 50000
+      self.approach_treshold = 5000000
+      self.reward = Reward()
 
     def reset(self):
       self.state = [0, 0]
@@ -57,14 +58,17 @@ class Environment:
       detections = self.get_detections()
       if self.log_level == 'DEBUG':
         print("Detections: ", detections)
+        
       reward: int = self.compute_reward(detections)
       terminated: bool = self.check_done(detections) 
+      observation = (0, 0)
+    
       for detection in detections:
-        observation = (0,0)
-        if detection.label in self.reward.targets:
-          object_presence = 1
-          object_box_size = ((detection.bounding_box[2] - detection.bounding_box[0]) * (detection.bounding_box[3] - detection.bounding_box[1]))
-          observation = (object_presence, object_box_size)
+          if detection.label in self.reward.targets:
+              object_presence = 1
+              object_box_size = ((detection.bounding_box[2] - detection.bounding_box[0]) * (detection.bounding_box[3] - detection.bounding_box[1]))
+              observation = (object_presence, object_box_size)
+      
       return observation, reward, terminated
 
     def compute_reward(self, detections: List[Detection]) -> int:
