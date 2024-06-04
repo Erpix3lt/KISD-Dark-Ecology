@@ -23,7 +23,7 @@ class Trainer():
   
     def __init__(self) -> None:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.environment = Environment('INFO')
+        self.environment = Environment('DEBUG')
 
         self.policy_net = DQN(n_input=self.environment.n_input, n_actions=self.environment.n_action).to(self.device)
         self.target_net = DQN(n_input=self.environment.n_input, n_actions=self.environment.n_action).to(self.device)
