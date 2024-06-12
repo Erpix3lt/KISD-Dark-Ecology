@@ -57,10 +57,12 @@ class DetectionService:
 
         for detection in detections:
             x1, y1, x2, y2 = detection.bounding_box
+            if detection.label is not None and detection.label == 'person':
+                detection.label = 'human component'
             text = detection.label + ' ' + str(detection.confidence)
 
             cv2.rectangle(np_image, (x1, y1), (x2, y2), (255, 255, 0), 2)
-            cv2.putText(np_image, text, (x1, y1 - 5), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 0), 2)
+            cv2.putText(np_image, text, (x1 + 10, y1 + 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 0), 2)
 
         return Image.fromarray(np_image)
     
