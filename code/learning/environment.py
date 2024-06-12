@@ -16,9 +16,9 @@ class Reward:
   def __init__(self) -> None:
     load_dotenv()
     self.targets = os.getenv('TARGETS').split(',')
-    self.treat = 1
+    self.treat = 5
     self.normalization_factor = 9000
-    self.punishment = -5
+    self.punishment = -1
 
 class Environment:
     def __init__(self, log_level = 'INFO'):
@@ -75,11 +75,13 @@ class Environment:
       return observation, reward, terminated
 
     def compute_reward(self, detections: List[Detection]) -> int:
-      reward = self.reward.punishment
+      # Give treat if nothing of interest is in frame
+      reward = self.reward.treat
       for detection in detections:
         if detection.label in self.reward.targets:
+          # If something of interest is in frame calculate punishment
           box_size = (detection.bounding_box[2] - detection.bounding_box[0]) * (detection.bounding_box[3] - detection.bounding_box[1])
-          reward = self.reward.treat * (box_size / self.reward.normalization_factor)
+          reward = self.reward.punishment * (box_size / self.reward.normalization_factor)
           break        
       if self.log_level == "DEBUG":
         print('Reward:', reward)
